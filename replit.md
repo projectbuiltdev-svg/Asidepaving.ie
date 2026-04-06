@@ -37,20 +37,20 @@ React SSR website cloned from asidepaving.ie. Express 5 server with Vite SSR.
 - **Design tokens**: Earthy green primary (`hsl(142 40% 30%)`), Playfair Display serif headings, Outfit sans-serif body
 
 ### pSEO System (Programmatic SEO)
-- **72 locations** × **5 services** = **360 unique location+service pages**
-- Counties: Dublin (50 areas), Kildare (11 areas), Meath (11 areas)
+- **129 locations** × **5 services** = **645 unique location+service pages**
+- Counties: Dublin (~95 areas), Kildare (~18 areas), Meath (~20 areas)
 - Services: driveways, patios, block-paving, garden-walls, artificial-grass
 - Routes: `/{service}?location={town-slug}` (e.g. `/driveways?location=swords`)
 - `/locations` index page groups all towns by county with links to all services
 
 ### pSEO Files
-- `src/data/locationData.ts` — 72 locations with coords, nearby towns, attractions, hero texts
+- `src/data/locationData.ts` — 129 locations with coords, nearby towns, attractions, hero texts
 - `src/data/serviceData.ts` — 5 services with features, descriptions, benefits, FAQs
 - `src/utils/locationUtils.ts` — hashing, formatting, FAQ generation utilities
 - `src/pages/LocationService.tsx` — 9-section location+service page component
 - `src/pages/Locations.tsx` — county-grouped index page
 - `src/pages/ArtificialGrassRouter.tsx` — handles `/artificial-grass` route conflict (original page vs pSEO)
-- `public/sitemap.xml` — 366 URLs total
+- `public/sitemap.xml` — 651 URLs total
 
 ### SEO Features
 - FAQ schema markup (`FAQPage`) on every location page
