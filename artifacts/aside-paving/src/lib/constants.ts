@@ -23,7 +23,7 @@ export const CONTACT_INFO = {
   tim: "0879134059",
   whatsapp: "+353876301856",
   whatsappLink: "https://api.whatsapp.com/send?phone=+353876301856",
-  email: "info@asidepaving.ie",
+  email: "murphypaving1985@gmail.com",
   address: "Co. Kildare, Ireland"
 };
 
