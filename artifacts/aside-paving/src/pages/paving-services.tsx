@@ -14,14 +14,23 @@ export default function PavingServices() {
 
   return (
     <Layout>
-      <div className="bg-secondary/30 py-12 border-b border-border">
-        <div className="container mx-auto max-w-6xl px-4">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">Paving Services</h1>
-          <div className="h-1 w-24 bg-primary mb-6" />
-          <h2 className="text-xl font-bold text-muted-foreground">TJ's Aside Paving (Fully Reg. Insured Contractor)</h2>
-          <p className="text-lg text-muted-foreground">Professional Driveway & Patio Specialist | EST. 1985</p>
+      <section className="relative bg-black text-white min-h-[50vh] flex items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${IMAGES.hero.paving})` }}
+        />
+        <div className="container mx-auto max-w-6xl px-4 relative z-10 py-16">
+          <div className="max-w-3xl bg-black/40 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+            <span className="inline-block py-1 px-3 rounded bg-primary text-white text-sm font-bold tracking-wider mb-6">
+              FULLY REG. INSURED CONTRACTOR
+            </span>
+            <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Paving Services</h1>
+            <div className="h-1 w-24 bg-primary mb-6" />
+            <h2 className="text-xl font-bold text-gray-300">TJ's Aside Paving</h2>
+            <p className="text-lg text-gray-300">Professional Driveway & Patio Specialist | EST. 1985</p>
+          </div>
         </div>
-      </div>
+      </section>
 
       <section className="py-16">
         <div className="container mx-auto max-w-6xl px-4 flex flex-col md:flex-row gap-12 items-start">

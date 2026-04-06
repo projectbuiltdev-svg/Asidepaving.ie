@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { locationData } from "@/data/locationData";
 import { serviceData } from "@/data/serviceData";
 import { formatLocation } from "@/utils/locationUtils";
+import { IMAGES } from "@/lib/constants";
 import { MapPin } from "lucide-react";
 
 export default function Locations() {
@@ -20,17 +21,23 @@ export default function Locations() {
 
   return (
     <Layout>
-      <section className="bg-primary text-primary-foreground py-16">
-        <div className="container mx-auto max-w-6xl px-4 text-center">
-          <span className="inline-block py-1 px-3 rounded bg-white/20 text-white text-sm font-bold tracking-wider mb-6">
-            SERVICE AREAS
-          </span>
-          <h1 className="text-3xl md:text-5xl font-serif font-bold mb-4">
-            Paving Services Across Dublin, Kildare & Meath
-          </h1>
-          <p className="text-lg opacity-90 max-w-2xl mx-auto">
-            {totalPages} service pages across {totalLocations} locations — find expert paving near you.
-          </p>
+      <section className="relative bg-black text-white min-h-[50vh] flex items-center">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${IMAGES.hero.home})` }}
+        />
+        <div className="container mx-auto max-w-6xl px-4 relative z-10 py-16 text-center">
+          <div className="inline-block bg-black/40 backdrop-blur-sm rounded-2xl p-8 md:p-12">
+            <span className="inline-block py-1 px-3 rounded bg-primary text-white text-sm font-bold tracking-wider mb-6">
+              SERVICE AREAS
+            </span>
+            <h1 className="text-3xl md:text-5xl font-serif font-bold mb-4">
+              Paving Services Across Dublin, Kildare & Meath
+            </h1>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              {totalPages} service pages across {totalLocations} locations — find expert paving near you.
+            </p>
+          </div>
         </div>
       </section>
 
