@@ -1,12 +1,11 @@
-import { lazy, Suspense, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Phone, MessageSquare, Menu, X, ChevronDown, ChevronUp, MapPin } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoImg from "@assets/logo.png";
-
-const LocationsDropdown = lazy(() => import("@/components/LocationsDropdown").then(m => ({ default: m.LocationsDropdown })));
+import { LocationsDropdown } from "@/components/LocationsDropdown";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -219,9 +218,7 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Suspense fallback={<span className="text-sm font-medium text-gray-700">Locations</span>}>
-            <LocationsDropdown />
-          </Suspense>
+          <LocationsDropdown />
         </nav>
 
         <MobileMenu />
