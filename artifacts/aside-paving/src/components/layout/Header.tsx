@@ -61,7 +61,7 @@ function MobileMenu() {
       <SheetContent side="right" className="w-80 p-0 overflow-y-auto">
         <div className="p-6">
           <div className="mb-6">
-            <img src={logoImg} alt="TJ's Aside Paving" className="h-12 w-auto object-contain" />
+            <img src={logoImg} alt="TJ's Aside Paving" className="h-20 w-auto object-contain" />
           </div>
 
           <nav className="space-y-1">
@@ -204,7 +204,7 @@ export function Header() {
 
       <div className="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center gap-4">
         <Link href="/" className="flex items-center gap-2" data-testid="link-home-logo">
-          <img src={logoImg} alt="TJ's Aside Paving" className="h-12 w-auto object-contain" />
+          <img src={logoImg} alt="TJ's Aside Paving" className="h-24 w-auto object-contain" />
         </Link>
 
         <nav className="hidden lg:flex flex-wrap justify-center items-center gap-4 md:gap-6">

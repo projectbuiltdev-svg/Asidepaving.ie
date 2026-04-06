@@ -93,7 +93,7 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <div className="mb-6">
-              <img src={logoImg} alt="TJ's Aside Paving" className="h-16 w-auto object-contain" />
+              <img src={logoImg} alt="TJ's Aside Paving" className="h-32 w-auto object-contain" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4 text-justify">
               Professional{" "}
