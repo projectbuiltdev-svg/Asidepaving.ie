@@ -1,0 +1,110 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "wxKVFuvJ-7Acnc-gSIVc5"
+uri = "file://artifacts/aside-paving/src/assets/hero-home.png"
+type = "image"
+title = "Home hero driveway"
+
+[[generated]]
+id = "VFwHVYz1C_hwC_aXSTWt-"
+uri = "file://artifacts/aside-paving/src/assets/hero-paving.png"
+type = "image"
+title = "Paving hero"
+
+[[generated]]
+id = "8Mz5lwtkAgDdixXFcPMJw"
+uri = "file://artifacts/aside-paving/src/assets/hero-patios.png"
+type = "image"
+title = "Patio hero"
+
+[[generated]]
+id = "R2VShRmaj7Uvyqj-FEgws"
+uri = "file://artifacts/aside-paving/src/assets/hero-walls.png"
+type = "image"
+title = "Walls hero"
+
+[[generated]]
+id = "HvdGjIQwbqzTHMjtZ0KgR"
+uri = "file://artifacts/aside-paving/src/assets/hero-grass.png"
+type = "image"
+title = "Grass hero"
+
+[[generated]]
+id = "KhQgfErQht-zdQi6zwXEr"
+uri = "file://artifacts/aside-paving/src/assets/service-paving.png"
+type = "image"
+title = "Paving service"
+
+[[generated]]
+id = "bQ1zVnhxEy2beuF8SI2lu"
+uri = "file://artifacts/aside-paving/src/assets/service-patios.png"
+type = "image"
+title = "Patios service"
+
+[[generated]]
+id = "sj7NSIb_57UIL8VnlWj8P"
+uri = "file://artifacts/aside-paving/src/assets/service-walls.png"
+type = "image"
+title = "Walls service"
+
+[[generated]]
+id = "oPSGMX-8Ii2ygNV5af_4V"
+uri = "file://artifacts/aside-paving/src/assets/service-grass.png"
+type = "image"
+title = "Grass service"
+
+[[generated]]
+id = "X1DMke_41dWTsvvzArXdN"
+uri = "file://artifacts/aside-paving/src/assets/gallery-1.png"
+type = "image"
+title = "Gallery paving 1"
+
+[[generated]]
+id = "6G5NpSDaYFtT4uUhP39B4"
+uri = "file://artifacts/aside-paving/src/assets/gallery-paving-2.png"
+type = "image"
+title = "Gallery paving 2"
+
+[[generated]]
+id = "AK55KJ2oyiO_IXstcMBAU"
+uri = "file://artifacts/aside-paving/src/assets/gallery-paving-3.png"
+type = "image"
+title = "Gallery paving 3"
+
+[[generated]]
+id = "BvtkJtAsIg0R6qcvPGtcu"
+uri = "file://artifacts/aside-paving/src/assets/gallery-patios-1.png"
+type = "image"
+title = "Gallery patios 1"
+
+[[generated]]
+id = "26k6Di9VZBbTRkbWRgSJs"
+uri = "file://artifacts/aside-paving/src/assets/gallery-patios-2.png"
+type = "image"
+title = "Gallery patios 2"
+
+[[generated]]
+id = "V8SFKuvfMHdHlQJM--m4k"
+uri = "file://artifacts/aside-paving/src/assets/gallery-walls-1.png"
+type = "image"
+title = "Gallery walls 1"
+
+[[generated]]
+id = "9pf9lJdfYvVRus1-Vet3U"
+uri = "file://artifacts/aside-paving/src/assets/gallery-walls-2.png"
+type = "image"
+title = "Gallery walls 2"
+
+[[generated]]
+id = "6UhHW3ePepSII_XjbETN8"
+uri = "file://artifacts/aside-paving/src/assets/gallery-grass-1.png"
+type = "image"
+title = "Gallery grass 1"
+
+[[generated]]
+id = "RXBPd1AIRL_vnoVXP1mZO"
+uri = "file://artifacts/aside-paving/src/assets/gallery-grass-2.png"
+type = "image"
+title = "Gallery grass 2"
