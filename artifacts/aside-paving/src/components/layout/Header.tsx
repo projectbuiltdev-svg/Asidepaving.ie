@@ -201,7 +201,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className="bg-gray-900">
+      <div className="bg-black">
         <div className="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center gap-4">
           <Link href="/" className="flex items-center gap-2" data-testid="link-home-logo">
             <img src={logoImg} alt="TJ's Aside Paving" className="h-24 w-auto object-contain" />
