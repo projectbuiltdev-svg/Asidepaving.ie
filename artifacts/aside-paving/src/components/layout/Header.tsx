@@ -53,7 +53,7 @@ function MobileMenu() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden" data-testid="btn-mobile-menu">
+        <Button variant="ghost" size="icon" className="lg:hidden text-gray-200 hover:text-white hover:bg-gray-800" data-testid="btn-mobile-menu">
           <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
@@ -201,26 +201,28 @@ export function Header() {
         </div>
       </div>
 
-      <div className="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="flex items-center gap-2" data-testid="link-home-logo">
-          <img src={logoImg} alt="TJ's Aside Paving" className="h-24 w-auto object-contain" />
-        </Link>
+      <div className="bg-gray-900">
+        <div className="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center gap-4">
+          <Link href="/" className="flex items-center gap-2" data-testid="link-home-logo">
+            <img src={logoImg} alt="TJ's Aside Paving" className="h-24 w-auto object-contain" />
+          </Link>
 
-        <nav className="hidden lg:flex flex-wrap justify-center items-center gap-4 md:gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`font-medium transition-colors hover:text-primary ${location === link.href ? 'text-primary border-b-2 border-primary' : 'text-foreground'}`}
-              data-testid={`link-nav-${link.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <LocationsDropdown />
-        </nav>
+          <nav className="hidden lg:flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`font-medium transition-colors hover:text-primary ${location === link.href ? 'text-primary border-b-2 border-primary' : 'text-gray-200'}`}
+                data-testid={`link-nav-${link.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <LocationsDropdown />
+          </nav>
 
-        <MobileMenu />
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );
