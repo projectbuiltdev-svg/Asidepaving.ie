@@ -8,7 +8,6 @@ import logoImg from "@assets/logo.png";
 import { LocationsDropdown } from "@/components/LocationsDropdown";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/driveways", label: "Driveways" },
   { href: "/patios", label: "Patios" },
   { href: "/block-paving", label: "Block Paving" },
