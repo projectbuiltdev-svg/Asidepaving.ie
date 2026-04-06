@@ -19,12 +19,7 @@ run = "pnpm --filter @workspace/aside-paving run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/aside-paving", "run", "build" ]
-publicDir = "artifacts/aside-paving/dist/public"
-serve = "static"
-
-[[services.production.rewrites]]
-from = "/*"
-to = "/index.html"
+run = "pnpm --filter @workspace/aside-paving run serve"
 
 [services.env]
 PORT = "20998"

@@ -1,3 +1,22 @@
+import heroHomePng from "@assets/hero-home.webp";
+import heroPavingPng from "@assets/hero-paving.webp";
+import heroPatiosPng from "@assets/hero-patios.webp";
+import heroWallsPng from "@assets/hero-walls.webp";
+import heroGrassPng from "@assets/hero-grass.webp";
+import servicePavingPng from "@assets/service-paving.webp";
+import servicePatiosPng from "@assets/service-patios.webp";
+import serviceWallsPng from "@assets/service-walls.webp";
+import serviceGrassPng from "@assets/service-grass.webp";
+import gallery1Png from "@assets/gallery-1.webp";
+import galleryPaving2Png from "@assets/gallery-paving-2.webp";
+import galleryPaving3Png from "@assets/gallery-paving-3.webp";
+import galleryPatios1Png from "@assets/gallery-patios-1.webp";
+import galleryPatios2Png from "@assets/gallery-patios-2.webp";
+import galleryWalls1Png from "@assets/gallery-walls-1.webp";
+import galleryWalls2Png from "@assets/gallery-walls-2.webp";
+import galleryGrass1Png from "@assets/gallery-grass-1.webp";
+import galleryGrass2Png from "@assets/gallery-grass-2.webp";
+
 export const CONTACT_INFO = {
   office: "045395149",
   tj: "0870381036",
@@ -41,30 +60,29 @@ export const TESTIMONIALS = [
   }
 ];
 
-// Re-export images we just generated (some might be missing if generate_image failed, but we assume success)
 export const IMAGES = {
   hero: {
-    home: new URL('@assets/hero-home.png', import.meta.url).href,
-    paving: new URL('@assets/hero-paving.png', import.meta.url).href,
-    patios: new URL('@assets/hero-patios.png', import.meta.url).href,
-    walls: new URL('@assets/hero-walls.png', import.meta.url).href,
-    grass: new URL('@assets/hero-grass.png', import.meta.url).href,
+    home: heroHomePng,
+    paving: heroPavingPng,
+    patios: heroPatiosPng,
+    walls: heroWallsPng,
+    grass: heroGrassPng,
   },
   services: {
-    paving: new URL('@assets/service-paving.png', import.meta.url).href,
-    patios: new URL('@assets/service-patios.png', import.meta.url).href,
-    walls: new URL('@assets/service-walls.png', import.meta.url).href,
-    grass: new URL('@assets/service-grass.png', import.meta.url).href,
+    paving: servicePavingPng,
+    patios: servicePatiosPng,
+    walls: serviceWallsPng,
+    grass: serviceGrassPng,
   },
   gallery: [
-    new URL('@assets/gallery-1.png', import.meta.url).href,
-    new URL('@assets/gallery-paving-2.png', import.meta.url).href,
-    new URL('@assets/gallery-paving-3.png', import.meta.url).href,
-    new URL('@assets/gallery-patios-1.png', import.meta.url).href,
-    new URL('@assets/gallery-patios-2.png', import.meta.url).href,
-    new URL('@assets/gallery-walls-1.png', import.meta.url).href,
-    new URL('@assets/gallery-walls-2.png', import.meta.url).href,
-    new URL('@assets/gallery-grass-1.png', import.meta.url).href,
-    new URL('@assets/gallery-grass-2.png', import.meta.url).href,
+    gallery1Png,
+    galleryPaving2Png,
+    galleryPaving3Png,
+    galleryPatios1Png,
+    galleryPatios2Png,
+    galleryWalls1Png,
+    galleryWalls2Png,
+    galleryGrass1Png,
+    galleryGrass2Png,
   ]
 };
