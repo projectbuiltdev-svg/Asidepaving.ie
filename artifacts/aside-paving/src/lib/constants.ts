@@ -22,7 +22,9 @@ export const CONTACT_INFO = {
   tj: "0870381036",
   tim: "0879134059",
   whatsapp: "+353876301856",
-  whatsappLink: "https://api.whatsapp.com/send?phone=+353876301856"
+  whatsappLink: "https://api.whatsapp.com/send?phone=+353876301856",
+  email: "info@asidepaving.ie",
+  address: "Co. Kildare, Ireland"
 };
 
 export const CATCHMENT_AREAS = "South Dublin, North Dublin, City Centre, and surrounding counties of Meath, Kildare, Kilkenny + Waterford.";
