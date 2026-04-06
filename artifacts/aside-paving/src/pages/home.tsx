@@ -40,10 +40,9 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative bg-black text-white min-h-[80vh] flex items-center">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${IMAGES.hero.home})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/40" />
         
         <div className="container mx-auto max-w-6xl px-4 relative z-10 py-20">
           <div className="max-w-3xl">
