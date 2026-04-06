@@ -34,7 +34,7 @@ export function LocationsDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="flex items-center gap-1 text-sm font-medium text-gray-200 hover:text-primary transition-colors outline-none"
+        className="flex items-center gap-1 text-sm font-medium text-gray-200 hover:text-amber-400 transition-colors outline-none"
         data-testid="dropdown-locations"
       >
         <MapPin className="w-4 h-4" />

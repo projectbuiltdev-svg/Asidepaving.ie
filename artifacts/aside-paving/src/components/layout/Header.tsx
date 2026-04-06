@@ -212,7 +212,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-medium transition-colors hover:text-primary ${location === link.href ? 'text-primary border-b-2 border-primary' : 'text-gray-200'}`}
+                className={`font-medium transition-colors hover:text-amber-400 ${location === link.href ? 'text-amber-400 border-b-2 border-amber-400' : 'text-gray-200'}`}
                 data-testid={`link-nav-${link.label.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
               >
                 {link.label}
