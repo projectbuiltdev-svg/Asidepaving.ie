@@ -4,6 +4,7 @@ import { Phone, MessageSquare, Menu, X, ChevronDown, ChevronUp, MapPin } from "l
 import { CONTACT_INFO } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import logoImg from "@assets/logo.png";
 
 const LocationsDropdown = lazy(() => import("@/components/LocationsDropdown").then(m => ({ default: m.LocationsDropdown })));
 
@@ -60,7 +61,9 @@ function MobileMenu() {
       </SheetTrigger>
       <SheetContent side="right" className="w-80 p-0 overflow-y-auto">
         <div className="p-6">
-          <div className="text-2xl font-serif font-bold text-primary mb-6">TJ's Aside Paving</div>
+          <div className="mb-6">
+            <img src={logoImg} alt="TJ's Aside Paving" className="h-12 w-auto object-contain" />
+          </div>
 
           <nav className="space-y-1">
             {navLinks.map((link) => (
@@ -201,8 +204,8 @@ export function Header() {
       </div>
 
       <div className="container mx-auto max-w-6xl px-4 py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="text-3xl font-serif font-bold text-primary flex items-center gap-2" data-testid="link-home-logo">
-          TJ's Aside Paving
+        <Link href="/" className="flex items-center gap-2" data-testid="link-home-logo">
+          <img src={logoImg} alt="TJ's Aside Paving" className="h-12 w-auto object-contain" />
         </Link>
 
         <nav className="hidden lg:flex flex-wrap justify-center items-center gap-4 md:gap-6">
