@@ -9,9 +9,9 @@ import PavingServices from "@/pages/paving-services";
 import PatiosDriveways from "@/pages/patios-driveways";
 import WallsPillars from "@/pages/walls-pillars";
 import ArtificialGrassPage from "@/pages/artificial-grass";
-import LocationService from "@/pages/LocationService";
 import Locations from "@/pages/Locations";
 import { ArtificialGrassRouter } from "@/pages/ArtificialGrassRouter";
+import ServiceRouter from "@/pages/ServiceRouter";
 
 const queryClient = new QueryClient();
 
@@ -23,10 +23,10 @@ export function AppRoutes() {
       <Route path="/patios-driveways" component={PatiosDriveways} />
       <Route path="/walls-pillars" component={WallsPillars} />
       <Route path="/artificial-grass" component={ArtificialGrassRouter} />
-      <Route path="/driveways">{() => <LocationService service="driveways" />}</Route>
-      <Route path="/patios">{() => <LocationService service="patios" />}</Route>
-      <Route path="/block-paving">{() => <LocationService service="block-paving" />}</Route>
-      <Route path="/garden-walls">{() => <LocationService service="garden-walls" />}</Route>
+      <Route path="/driveways">{() => <ServiceRouter service="driveways" />}</Route>
+      <Route path="/patios">{() => <ServiceRouter service="patios" />}</Route>
+      <Route path="/block-paving">{() => <ServiceRouter service="block-paving" />}</Route>
+      <Route path="/garden-walls">{() => <ServiceRouter service="garden-walls" />}</Route>
       <Route path="/locations" component={Locations} />
       <Route component={NotFound} />
     </Switch>
