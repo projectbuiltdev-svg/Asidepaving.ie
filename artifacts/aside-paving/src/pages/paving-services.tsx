@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
+import { ContactForm } from "@/components/shared/ContactForm";
 import { IMAGES } from "@/lib/constants";
 import { CheckCircle2 } from "lucide-react";
 
