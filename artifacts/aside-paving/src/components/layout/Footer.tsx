@@ -258,31 +258,60 @@ export function Footer() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-800">
-            <p className="text-center text-gray-400 text-sm font-medium mb-6">Popular Service Areas</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-6">
+            <p className="text-center text-white text-lg font-bold mb-6">Popular Service Areas</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-8">
               {["Swords","Malahide","Lucan","Naas","Dundrum","Blanchardstown",
                 "Navan","Tallaght","Blackrock","Maynooth","Sandyford","Ashbourne"].map((town) => (
                 <Link
                   key={`popular-${slugify(town)}`}
                   href={`/driveways?location=${slugify(town)}`}
-                  className="text-xs text-gray-400 hover:text-green-400 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
+                  className="text-sm text-white hover:text-green-400 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
                 >
                   {town}
                 </Link>
               ))}
             </div>
 
-            <div className="flex flex-wrap justify-center gap-1 text-xs">
-              {services.map((service) => (
-                ["Swords","Tallaght","Naas","Navan","Dundrum","Lucan"].map((town) => (
-                  <Link
-                    key={`seo-${service.slug}-${slugify(town)}`}
-                    href={`/${service.slug}?location=${slugify(town)}`}
-                    className="text-gray-400 hover:text-green-400 transition-colors px-2 py-1"
-                  >
-                    {service.label} {town}
-                  </Link>
-                ))
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+              {[
+                { label: "Driveways Swords", slug: "driveways", town: "swords" },
+                { label: "Driveways Tallaght", slug: "driveways", town: "tallaght" },
+                { label: "Driveways Naas", slug: "driveways", town: "naas" },
+                { label: "Driveways Navan", slug: "driveways", town: "navan" },
+                { label: "Driveways Dundrum", slug: "driveways", town: "dundrum" },
+                { label: "Driveways Lucan", slug: "driveways", town: "lucan" },
+                { label: "Patios Swords", slug: "patios", town: "swords" },
+                { label: "Patios Tallaght", slug: "patios", town: "tallaght" },
+                { label: "Patios Naas", slug: "patios", town: "naas" },
+                { label: "Patios Navan", slug: "patios", town: "navan" },
+                { label: "Patios Dundrum", slug: "patios", town: "dundrum" },
+                { label: "Patios Lucan", slug: "patios", town: "lucan" },
+                { label: "Block Paving Swords", slug: "block-paving", town: "swords" },
+                { label: "Block Paving Tallaght", slug: "block-paving", town: "tallaght" },
+                { label: "Block Paving Naas", slug: "block-paving", town: "naas" },
+                { label: "Block Paving Navan", slug: "block-paving", town: "navan" },
+                { label: "Block Paving Dundrum", slug: "block-paving", town: "dundrum" },
+                { label: "Block Paving Lucan", slug: "block-paving", town: "lucan" },
+                { label: "Garden Walls Swords", slug: "garden-walls", town: "swords" },
+                { label: "Garden Walls Tallaght", slug: "garden-walls", town: "tallaght" },
+                { label: "Garden Walls Naas", slug: "garden-walls", town: "naas" },
+                { label: "Garden Walls Navan", slug: "garden-walls", town: "navan" },
+                { label: "Garden Walls Dundrum", slug: "garden-walls", town: "dundrum" },
+                { label: "Garden Walls Lucan", slug: "garden-walls", town: "lucan" },
+                { label: "Artificial Grass Swords", slug: "artificial-grass", town: "swords" },
+                { label: "Artificial Grass Tallaght", slug: "artificial-grass", town: "tallaght" },
+                { label: "Artificial Grass Naas", slug: "artificial-grass", town: "naas" },
+                { label: "Artificial Grass Navan", slug: "artificial-grass", town: "navan" },
+                { label: "Artificial Grass Dundrum", slug: "artificial-grass", town: "dundrum" },
+                { label: "Artificial Grass Lucan", slug: "artificial-grass", town: "lucan" },
+              ].map((item) => (
+                <Link
+                  key={`seo-${item.slug}-${item.town}`}
+                  href={`/${item.slug}?location=${item.town}`}
+                  className="text-xs text-white hover:text-green-400 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
