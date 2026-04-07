@@ -258,14 +258,14 @@ export function Footer() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-gray-800">
-            <p className="text-center text-white text-lg font-bold mb-6">Popular Service Areas</p>
+            <p className="text-center text-green-400 text-lg font-bold mb-6">Popular Service Areas</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-8">
               {["Swords","Malahide","Lucan","Naas","Dundrum","Blanchardstown",
                 "Navan","Tallaght","Blackrock","Maynooth","Sandyford","Ashbourne"].map((town) => (
                 <Link
                   key={`popular-${slugify(town)}`}
                   href={`/driveways?location=${slugify(town)}`}
-                  className="text-sm text-white hover:text-green-400 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
+                  className="text-sm text-green-400 hover:text-green-300 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
                 >
                   {town}
                 </Link>
