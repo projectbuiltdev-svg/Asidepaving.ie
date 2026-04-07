@@ -5,6 +5,8 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
+import { ServiceFAQ } from "@/components/ServiceFAQ";
+import { serviceFAQs } from "@/data/serviceFAQs";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { MapPin, ArrowRight } from "lucide-react";
 
@@ -108,6 +110,8 @@ export default function PatiosDriveways() {
           <CountyAreaLinks serviceSlug="patios" />
         </div>
       </section>
+
+      <ServiceFAQ serviceSlug="patios" faqs={serviceFAQs["patios"]} />
 
       <ContactForm />
       <FreeQuoteCTA />

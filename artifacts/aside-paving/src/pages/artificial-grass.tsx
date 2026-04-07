@@ -5,6 +5,8 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
+import { ServiceFAQ } from "@/components/ServiceFAQ";
+import { serviceFAQs } from "@/data/serviceFAQs";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { Leaf, Sun, Shield, Droplets } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -134,6 +136,8 @@ export default function ArtificialGrass() {
           <CountyAreaLinks serviceSlug="artificial-grass" />
         </div>
       </section>
+
+      <ServiceFAQ serviceSlug="artificial-grass" faqs={serviceFAQs["artificial-grass"]} />
 
       <ContactForm />
       <FreeQuoteCTA />

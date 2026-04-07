@@ -5,6 +5,8 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
+import { ServiceFAQ } from "@/components/ServiceFAQ";
+import { serviceFAQs } from "@/data/serviceFAQs";
 import { IMAGES } from "@/lib/constants";
 import { HardHat } from "lucide-react";
 
@@ -97,6 +99,8 @@ export default function WallsPillars() {
           <CountyAreaLinks serviceSlug="garden-walls" />
         </div>
       </section>
+
+      <ServiceFAQ serviceSlug="garden-walls" faqs={serviceFAQs["garden-walls"]} />
 
       <ContactForm />
       <FreeQuoteCTA />

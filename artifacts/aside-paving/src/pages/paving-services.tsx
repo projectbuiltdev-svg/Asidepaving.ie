@@ -5,6 +5,8 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
+import { ServiceFAQ } from "@/components/ServiceFAQ";
+import { serviceFAQs } from "@/data/serviceFAQs";
 import { IMAGES } from "@/lib/constants";
 import { CheckCircle2 } from "lucide-react";
 
@@ -104,6 +106,8 @@ export default function PavingServices() {
           <CountyAreaLinks serviceSlug="block-paving" />
         </div>
       </section>
+
+      <ServiceFAQ serviceSlug="block-paving" faqs={serviceFAQs["block-paving"]} />
 
       <ContactForm />
       <FreeQuoteCTA />
