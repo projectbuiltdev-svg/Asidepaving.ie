@@ -9,7 +9,8 @@
     "build:server": "vite build --config vite.config.ts --ssr src/entry-server.tsx --outDir dist/server",
     "build": "pnpm run build:client && pnpm run build:server",
     "serve": "NODE_ENV=production tsx server.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "generate:sitemap": "tsx scripts/generate-sitemap.ts"
   },
   "dependencies": {
     "compression": "^1.7.5",

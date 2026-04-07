@@ -1,0 +1,525 @@
+Add internal linking, complete schema markup and all missing SEO elements to the Aside Paving site. This is a comprehensive SEO completion pass.
+
+═══════════════════════════════════════
+STEP 1 — INTERNAL LINKING SYSTEM
+═══════════════════════════════════════
+
+Create src/components/InternalLinks.tsx
+
+This component generates contextual internal links throughout the site.
+
+export const internalLinkSets = {
+
+  // Links shown on homepage
+  homepage: [
+    { text: "Driveways Dublin", href: "/driveways" },
+    { text: "Patios Dublin", href: "/patios" },
+    { text: "Block Paving Dublin", href: "/block-paving" },
+    { text: "Garden Walls Dublin", href: "/garden-walls" },
+    { text: "Artificial Grass Dublin", href: "/artificial-grass" },
+    { text: "Paving in Swords", href: "/driveways?location=swords" },
+    { text: "Paving in Lucan", href: "/driveways?location=lucan" },
+    { text: "Paving in Naas", href: "/driveways?location=naas" },
+    { text: "Paving in Navan", href: "/driveways?location=navan" },
+    { text: "Paving in Dundrum", href: "/driveways?location=dundrum" },
+    { text: "Paving in Malahide", href: "/driveways?location=malahide" },
+  ],
+
+  // Links shown on each service page (pointing to other services)
+  serviceToService: {
+    "driveways": [
+      { text: "Patios", href: "/patios" },
+      { text: "Block Paving", href: "/block-paving" },
+      { text: "Garden Walls", href: "/garden-walls" },
+      { text: "Artificial Grass", href: "/artificial-grass" },
+    ],
+    "patios": [
+      { text: "Driveways", href: "/driveways" },
+      { text: "Block Paving", href: "/block-paving" },
+      { text: "Garden Walls", href: "/garden-walls" },
+      { text: "Artificial Grass", href: "/artificial-grass" },
+    ],
+    "block-paving": [
+      { text: "Driveways", href: "/driveways" },
+      { text: "Patios", href: "/patios" },
+      { text: "Garden Walls", href: "/garden-walls" },
+      { text: "Artificial Grass", href: "/artificial-grass" },
+    ],
+    "garden-walls": [
+      { text: "Driveways", href: "/driveways" },
+      { text: "Patios", href: "/patios" },
+      { text: "Block Paving", href: "/block-paving" },
+      { text: "Artificial Grass", href: "/artificial-grass" },
+    ],
+    "artificial-grass": [
+      { text: "Patios", href: "/patios" },
+      { text: "Garden Walls", href: "/garden-walls" },
+      { text: "Driveways", href: "/driveways" },
+      { text: "Block Paving", href: "/block-paving" },
+    ],
+  },
+
+  // Top Dublin areas shown on every service page
+  topDublinAreas: [
+    "swords","malahide","blanchardstown","lucan","tallaght","dundrum",
+    "blackrock","clontarf","sandyford","castleknock","raheny","dun-laoghaire"
+  ],
+
+  // Top Kildare areas
+  topKildareAreas: [
+    "naas","maynooth","celbridge","leixlip","newbridge","clane"
+  ],
+
+  // Top Meath areas
+  topMeathAreas: [
+    "navan","ashbourne","dunboyne","ratoath","trim","dunshaughlin"
+  ],
+}
+
+// Helper to format slug to display name
+export function formatAreaName(slug: string): string {
+  return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+}
+
+// Component: renders a grid of service links for a location page
+export function ServiceLinksGrid({ serviceSlug, locationSlug }: { serviceSlug: string; locationSlug: string }) {
+  const services = ["driveways","patios","block-paving","garden-walls","artificial-grass"]
+  const serviceNames: Record<string, string> = {
+    "driveways": "Driveways",
+    "patios": "Patios",
+    "block-paving": "Block Paving",
+    "garden-walls": "Garden Walls",
+    "artificial-grass": "Artificial Grass",
+  }
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 my-6">
+      {services.filter(s => s !== serviceSlug).map(s => (
+        
+          key={s}
+          href={`/${s}?location=${locationSlug}`}
+          className="text-sm text-center py-2 px-3 rounded border border-gray-200 hover:border-primary hover:text-primary transition-colors"
+        >
+          {serviceNames[s]} in {formatAreaName(locationSlug)}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+// Component: renders nearby areas for same service
+export function NearbyAreasLinks({ serviceSlug, nearbyAreas }: { serviceSlug: string; nearbyAreas: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2 my-4">
+      {nearbyAreas.map(area => (
+        
+          key={area}
+          href={`/${serviceSlug}?location=${area}`}
+          className="text-xs px-3 py-1.5 rounded-full bg-gray-100 hover:bg-primary hover:text-white transition-colors"
+        >
+          {formatAreaName(area)}
+        </a>
+      ))}
+    </div>
+  )
+}
+
+// Component: county area links on service pages
+export function CountyAreaLinks({ serviceSlug }: { serviceSlug: string }) {
+  return (
+    <div className="my-8 p-6 bg-gray-50 rounded-lg">
+      <h3 className="text-lg font-semibold mb-4">
+        {serviceSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')} Across Dublin, Kildare & Meath
+      </h3>
+      <div className="grid md:grid-cols-3 gap-6">
+        <div>
+          <h4 className="font-medium text-sm text-gray-600 mb-2">County Dublin</h4>
+          <div className="flex flex-wrap gap-1">
+            {internalLinkSets.topDublinAreas.map(area => (
+              <a key={area} href={`/${serviceSlug}?location=${area}`}
+                className="text-xs text-primary hover:underline px-1">
+                {formatAreaName(area)}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-medium text-sm text-gray-600 mb-2">County Kildare</h4>
+          <div className="flex flex-wrap gap-1">
+            {internalLinkSets.topKildareAreas.map(area => (
+              <a key={area} href={`/${serviceSlug}?location=${area}`}
+                className="text-xs text-primary hover:underline px-1">
+                {formatAreaName(area)}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-medium text-sm text-gray-600 mb-2">County Meath</h4>
+          <div className="flex flex-wrap gap-1">
+            {internalLinkSets.topMeathAreas.map(area => (
+              <a key={area} href={`/${serviceSlug}?location=${area}`}
+                className="text-xs text-primary hover:underline px-1">
+                {formatAreaName(area)}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <a href="/locations" className="inline-block mt-4 text-sm text-primary font-medium hover:underline">
+        View all 135 service areas →
+      </a>
+    </div>
+  )
+}
+
+
+═══════════════════════════════════════
+STEP 2 — SCHEMA MARKUP COMPONENTS
+═══════════════════════════════════════
+
+Create src/components/SchemaMarkup.tsx
+
+All schema is injected as SSR-rendered script tags.
+
+// Organisation schema — add to every page
+export const organisationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Aside Paving",
+  "url": "https://asidepaving.ie",
+  "foundingDate": "1985",
+  "description": "Professional paving contractors serving Dublin, Kildare and Meath since 1985. Driveways, patios, block paving, garden walls and artificial grass.",
+  "areaServed": ["Dublin", "Kildare", "Meath"],
+  "sameAs": []
+}
+
+// LocalBusiness schema — homepage and service pages
+export function getLocalBusinessSchema(overrides?: Partial<Record<string, string>>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Aside Paving",
+    "image": "https://asidepaving.ie/assets/hero-home.webp",
+    "url": "https://asidepaving.ie",
+    "telephone": "ASIDE_PAVING_PHONE",
+    "email": "ASIDE_PAVING_EMAIL",
+    "foundingDate": "1985",
+    "priceRange": "$$",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash, Card, Bank Transfer",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "IE",
+      "addressRegion": "Dublin"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 53.3498,
+      "longitude": -6.2603
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Dublin" },
+      { "@type": "AdministrativeArea", "name": "County Kildare" },
+      { "@type": "AdministrativeArea", "name": "County Meath" }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Paving Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Driveway Installation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Patio Installation" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Block Paving" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Garden Walls" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Artificial Grass" } }
+      ]
+    },
+    ...overrides
+  }
+}
+
+// Service schema — per service page
+export function getServiceSchema(serviceTitle: string, serviceSlug: string, description: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": serviceTitle,
+    "description": description,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Aside Paving",
+      "url": "https://asidepaving.ie"
+    },
+    "areaServed": ["Dublin", "Kildare", "Meath"],
+    "url": `https://asidepaving.ie/${serviceSlug}`,
+    "serviceType": serviceTitle
+  }
+}
+
+// BreadcrumbList schema
+export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  }
+}
+
+// FAQPage schema — used on all location pages
+export function getFAQSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  }
+}
+
+// Review/AggregateRating schema
+export const aggregateRatingSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Aside Paving",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "47",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
+
+
+═══════════════════════════════════════
+STEP 3 — BREADCRUMBS COMPONENT
+═══════════════════════════════════════
+
+Create src/components/Breadcrumbs.tsx
+
+import { Link } from "wouter"
+import { ChevronRight, Home } from "lucide-react"
+
+interface BreadcrumbItem {
+  label: string
+  href?: string
+}
+
+export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
+  return (
+    <nav aria-label="Breadcrumb" className="py-3 px-4 text-sm text-gray-500">
+      <ol className="flex items-center flex-wrap gap-1">
+        <li className="flex items-center gap-1">
+          <Link href="/" className="hover:text-primary transition-colors flex items-center gap-1">
+            <Home className="w-3.5 h-3.5" />
+            Home
+          </Link>
+        </li>
+        {items.map((item, i) => (
+          <li key={i} className="flex items-center gap-1">
+            <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+            {item.href && i < items.length - 1 ? (
+              <Link href={item.href} className="hover:text-primary transition-colors">
+                {item.label}
+              </Link>
+            ) : (
+              <span className="text-gray-700 font-medium">{item.label}</span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+
+═══════════════════════════════════════
+STEP 4 — UPDATE LocationService.tsx
+═══════════════════════════════════════
+
+Import and use all the new components in LocationService.tsx:
+
+1. Add Breadcrumbs at top of page:
+   <Breadcrumbs items={[
+     { label: service.title, href: `/${serviceSlug}` },
+     { label: locationName }
+   ]} />
+
+2. After the hero section add ServiceLinksGrid:
+   <ServiceLinksGrid serviceSlug={serviceSlug} locationSlug={locationSlug} />
+
+3. After the main content add CountyAreaLinks:
+   <CountyAreaLinks serviceSlug={serviceSlug} />
+
+4. In the nearby areas section use NearbyAreasLinks:
+   <NearbyAreasLinks serviceSlug={serviceSlug} nearbyAreas={locData.nearby} />
+
+5. Inject all schema server-side via ssr-meta.ts:
+   - LocalBusiness schema with location coordinates
+   - Service schema
+   - BreadcrumbList schema
+   - FAQPage schema
+   All as separate <script type="application/ld+json"> tags
+
+
+═══════════════════════════════════════
+STEP 5 — UPDATE SERVICE BASE PAGES
+═══════════════════════════════════════
+
+On each service base page (/driveways, /patios etc.) add:
+
+1. Breadcrumbs:
+   <Breadcrumbs items={[{ label: service.title }]} />
+
+2. CountyAreaLinks component at bottom
+
+3. Related services section using internalLinkSets.serviceToService
+
+4. Inject via ssr-meta.ts:
+   - LocalBusiness schema
+   - Service schema
+   - BreadcrumbList schema
+
+
+═══════════════════════════════════════
+STEP 6 — UPDATE HOMEPAGE
+═══════════════════════════════════════
+
+Add to homepage bottom section (above footer):
+
+A "Popular Locations" section:
+<section>
+  <h2 className="text-2xl font-bold text-center mb-6">
+    Paving Services Across Dublin, Kildare & Meath
+  </h2>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+    {internalLinkSets.homepage.map(link => (
+      <a key={link.href} href={link.href}
+        className="text-sm text-center py-3 px-4 rounded-lg border hover:border-primary hover:text-primary transition-colors">
+        {link.text}
+      </a>
+    ))}
+  </div>
+  <div className="text-center mt-6">
+    <a href="/locations" className="text-primary font-medium hover:underline">
+      View all 135 service areas across Dublin, Kildare & Meath →
+    </a>
+  </div>
+</section>
+
+Inject on homepage via ssr-meta.ts:
+- Organisation schema
+- LocalBusiness schema with aggregateRating
+- WebSite schema:
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Aside Paving",
+    "url": "https://asidepaving.ie",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://asidepaving.ie/locations",
+      "query-input": "required name=search_term_string"
+    }
+  }
+
+
+═══════════════════════════════════════
+STEP 7 — MISSING TECHNICAL SEO
+═══════════════════════════════════════
+
+1. Add to all page <head> via ssr-meta.ts:
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="theme-color" content="#1a1a1a" />
+   <link rel="icon" href="/favicon.ico" />
+   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+   <meta name="format-detection" content="telephone=yes" />
+
+2. Add OG image meta to all pages:
+   <meta property="og:image" content="https://asidepaving.ie/assets/opengraph.jpg" />
+   <meta property="og:image:width" content="1200" />
+   <meta property="og:image:height" content="630" />
+   <meta property="og:image:alt" content="Aside Paving - Professional Paving Services" />
+
+3. Twitter card:
+   <meta name="twitter:card" content="summary_large_image" />
+   <meta name="twitter:image" content="https://asidepaving.ie/assets/opengraph.jpg" />
+
+4. Add hreflang for Ireland:
+   <link rel="alternate" hreflang="en-ie" href="https://asidepaving.ie/" />
+   <link rel="alternate" hreflang="en" href="https://asidepaving.ie/" />
+
+5. Check that existing server.ts sets these HTTP headers on all responses:
+   X-Robots-Tag: index, follow
+   Cache-Control: public, max-age=3600
+
+6. Add 404 page at src/pages/NotFound.tsx if it doesn't exist:
+   - H1: "Page Not Found"
+   - Link back to homepage
+   - Links to top 5 services
+   - Inject noindex meta: <meta name="robots" content="noindex, follow" />
+
+7. Add 301 redirect rule — if someone hits /driveway (no s) redirect to /driveways
+   Add common misspellings to server.ts redirect map:
+   const redirects: Record<string, string> = {
+     '/driveway': '/driveways',
+     '/patio': '/patios',
+     '/garden-wall': '/garden-walls',
+     '/artificial-lawn': '/artificial-grass',
+     '/fake-grass': '/artificial-grass',
+     '/astroturf': '/artificial-grass',
+     '/cobblelock': '/block-paving',
+     '/tarmac': '/driveways',
+   }
+
+
+═══════════════════════════════════════
+STEP 8 — VERIFY
+═══════════════════════════════════════
+
+After all changes run these checks:
+
+# Check homepage schema
+curl -s http://localhost:3000/ | grep -c "application/ld+json"
+
+# Check location page has all meta
+curl -s "http://localhost:3000/driveways?location=swords" | grep -E "title|description|keywords|canonical|ld+json" | head -20
+
+# Check breadcrumbs render in HTML
+curl -s "http://localhost:3000/driveways?location=naas" | grep -i "breadcrumb"
+
+# Check sitemap exists and has entries
+curl -s http://localhost:3000/sitemap.xml | grep -c "<url>"
+
+# Check robots.txt
+curl -s http://localhost:3000/robots.txt
+
+Expected results:
+- Homepage: 3+ schema blocks
+- Location page: title, description, keywords, canonical, 3+ schema blocks, breadcrumbs
+- Sitemap: 680+ <url> entries
+- robots.txt: contains sitemap URL

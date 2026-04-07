@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asidepaving.ie/sitemap.xml
+
+Disallow: /api/

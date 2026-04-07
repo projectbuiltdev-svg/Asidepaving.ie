@@ -1,0 +1,257 @@
+Add comprehensive SEO keywords and meta tags to all pages including the pSEO location pages. All meta injection goes through the existing server-side ssr-meta.ts system.
+
+═══════════════════════════════════════
+STEP 1 — src/data/seoMeta.ts
+═══════════════════════════════════════
+
+Create this file with keyword sets per page and per service:
+
+export const pageMeta: Record<string, { title: string; description: string; keywords: string }> = {
+  "/": {
+    title: "Aside Paving | Driveways, Patios & Block Paving | Dublin, Kildare & Meath | Est. 1985",
+    description: "Expert paving services across Dublin, Kildare and Meath since 1985. Driveways, patios, block paving, garden walls and artificial grass. Free quotes. Call Aside Paving today.",
+    keywords: "paving Dublin, driveways Dublin, block paving Dublin, patios Dublin, paving contractor Dublin, driveway installation Dublin, cobblelock Dublin, paving Kildare, paving Meath, driveway company Ireland"
+  },
+  "/driveways": {
+    title: "Driveways Dublin | Block Paving, Cobblelock & Tarmac | Aside Paving Est. 1985",
+    description: "Professional driveway installation across Dublin, Kildare and Meath. Block paving, cobblelock, tarmac, resin bound and gravel driveways. 40+ years experience. Free quotes.",
+    keywords: "driveways Dublin, driveway installation Dublin, block paving driveways, cobblelock driveways Dublin, tarmac driveways Dublin, resin bound driveways Ireland, new driveway Dublin, driveway contractors Dublin, paving company Dublin, driveway cost Dublin"
+  },
+  "/patios": {
+    title: "Patios Dublin | Natural Stone, Porcelain & Sandstone | Aside Paving",
+    description: "Beautiful patio installation across Dublin, Kildare and Meath. Natural sandstone, porcelain, limestone and concrete patios. Bespoke designs. Free quotes from Aside Paving.",
+    keywords: "patios Dublin, patio installation Dublin, natural stone patios Dublin, porcelain patios Dublin, sandstone patios Ireland, garden patios Dublin, patio contractors Dublin, outdoor paving Dublin, patio cost Dublin, patio builders Dublin"
+  },
+  "/block-paving": {
+    title: "Block Paving Dublin | Driveways & Patios | Cobblelock Specialists | Aside Paving",
+    description: "Expert block paving installation for driveways and patios across Dublin, Kildare and Meath. Herringbone, basketweave and stretcher bond patterns. Est. 1985. Free quotes.",
+    keywords: "block paving Dublin, cobblelock Dublin, block paving driveways Dublin, block paving patios Dublin, tegula block paving Ireland, herringbone paving Dublin, block paving cost Dublin, paving blocks Dublin, driveway blocks Ireland, block paving contractors Dublin"
+  },
+  "/garden-walls": {
+    title: "Garden Walls Dublin | Brick, Block & Stone Walls | Aside Paving Est. 1985",
+    description: "Quality garden wall construction across Dublin, Kildare and Meath. Brick walls, block walls, stone walls, retaining walls and capped walls. 40+ years experience. Free quotes.",
+    keywords: "garden walls Dublin, brick walls Dublin, block walls Dublin, retaining walls Dublin, garden wall builders Dublin, boundary walls Dublin, stone walls Ireland, garden wall contractors Dublin, garden wall cost Dublin, paving and walls Dublin"
+  },
+  "/artificial-grass": {
+    title: "Artificial Grass Dublin | Premium Turf Supply & Installation | Aside Paving",
+    description: "Premium artificial grass supply and installation across Dublin, Kildare and Meath. Child safe, pet friendly, UV resistant. 10-year guarantee. Zero maintenance. Free quotes.",
+    keywords: "artificial grass Dublin, fake grass Dublin, artificial lawn Dublin, artificial turf Dublin, fake lawn Ireland, astroturf Dublin, artificial grass installation Dublin, artificial grass cost Dublin, garden artificial grass, low maintenance garden Dublin"
+  },
+  "/locations": {
+    title: "Paving Services Areas | Dublin, Kildare & Meath | Aside Paving",
+    description: "Aside Paving serves 135 towns across Dublin, Kildare and Meath. Find expert driveways, patios, block paving, garden walls and artificial grass near you.",
+    keywords: "paving near me, driveways near me, paving Dublin areas, paving Kildare areas, paving Meath areas, local paving contractor, paving company near me Ireland"
+  },
+  "/contact": {
+    title: "Contact Aside Paving | Free Quote | Dublin, Kildare & Meath",
+    description: "Contact Aside Paving for a free, no-obligation quote. Expert driveways, patios, block paving, garden walls and artificial grass across Dublin, Kildare and Meath.",
+    keywords: "contact paving company Dublin, free paving quote Dublin, paving estimate Dublin, paving quote Ireland, aside paving contact"
+  },
+  "/about": {
+    title: "About Aside Paving | Est. 1985 | 40+ Years Paving Experience",
+    description: "Aside Paving has been serving homes across Dublin, Kildare and Meath since 1985. Learn about our 40+ years of expert paving, driveways and outdoor space experience.",
+    keywords: "about aside paving, paving company Dublin history, established paving contractor, experienced pavers Dublin, trusted paving company Ireland"
+  }
+}
+
+export const serviceKeywords: Record<string, string[]> = {
+  "driveways": ["driveways", "driveway installation", "block paving driveways", "cobblelock driveways", "tarmac driveways", "resin bound driveways", "new driveway", "driveway contractors"],
+  "patios": ["patios", "patio installation", "natural stone patios", "porcelain patios", "sandstone patios", "garden patios", "patio contractors", "outdoor paving"],
+  "block-paving": ["block paving", "cobblelock", "paving blocks", "herringbone paving", "tegula paving", "block paving driveways", "block paving patios"],
+  "garden-walls": ["garden walls", "brick walls", "block walls", "retaining walls", "boundary walls", "stone walls", "garden wall builders"],
+  "artificial-grass": ["artificial grass", "fake grass", "artificial lawn", "artificial turf", "fake lawn", "astroturf", "artificial grass installation"]
+}
+
+
+═══════════════════════════════════════
+STEP 2 — Update server/ssr-meta.ts
+═══════════════════════════════════════
+
+Find the existing ssr-meta.ts file. Add this logic to generate location page meta dynamically:
+
+Import the data:
+  import { pageMeta, serviceKeywords } from '../src/data/seoMeta'
+  import { locationData } from '../src/data/locationData'
+  import { serviceData } from '../src/data/serviceData'
+
+Add a function to generate location page meta:
+
+function getLocationPageMeta(pathname: string, searchParams: URLSearchParams) {
+  const locationSlug = searchParams.get('location')
+  
+  // Match service from pathname
+  const serviceSlug = pathname.replace('/', '')
+  const service = serviceData[serviceSlug]
+  const locData = locationSlug ? locationData[locationSlug] : null
+
+  if (!service || !locData) return null
+
+  const locationName = locationSlug
+    .split('-')
+    .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ')
+
+  const county = locData.county
+  const keywords = serviceKeywords[serviceSlug] || []
+
+  return {
+    title: `${service.title} in ${locationName}, Co. ${county} | Aside Paving Est. 1985`,
+    description: `Expert ${service.title.toLowerCase()} in ${locationName}, Co. ${county}. ${service.features.slice(0, 3).join(', ')}. Est. 1985. Free quotes. Serving Dublin, Kildare & Meath.`,
+    keywords: [
+      ...keywords.map(k => `${k} ${locationName}`),
+      ...keywords.map(k => `${k} ${county}`),
+      `paving ${locationName}`,
+      `paving company ${locationName}`,
+      `paving contractors ${locationName}`,
+      `paving services ${locationName}`,
+      `${service.title.toLowerCase()} ${locationName}`,
+      `${service.title.toLowerCase()} Co. ${county}`,
+      `driveways ${locationName}`,
+      `patios ${locationName}`,
+    ].join(', '),
+    canonical: `https://asidepaving.ie/${serviceSlug}?location=${locationSlug}`,
+    schema: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Aside Paving",
+      "description": `${service.title} in ${locationName}`,
+      "url": `https://asidepaving.ie/${serviceSlug}?location=${locationSlug}`,
+      "telephone": "ASIDE_PAVING_PHONE",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": locationName,
+        "addressRegion": `Co. ${county}`,
+        "addressCountry": "IE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": locData.lat,
+        "longitude": locData.lng
+      },
+      "areaServed": `${locationName}, Co. ${county}`,
+      "foundingDate": "1985",
+      "priceRange": "$$"
+    })
+  }
+}
+
+Then in the main meta injection logic, update the URL matching to:
+
+1. First check if it's a location page (has ?location= param and matches a service slug):
+   const url = new URL(req.url, 'https://asidepaving.ie')
+   const locationMeta = getLocationPageMeta(url.pathname, url.searchParams)
+   if (locationMeta) {
+     // inject title, description, keywords, canonical, schema
+   }
+
+2. Then fall back to pageMeta[pathname] for static pages
+
+3. For meta tag injection, ensure ALL of these are set:
+   <title>{title}</title>
+   <meta name="description" content="{description}" />
+   <meta name="keywords" content="{keywords}" />
+   <link rel="canonical" href="{canonical}" />
+   <meta property="og:title" content="{title}" />
+   <meta property="og:description" content="{description}" />
+   <meta property="og:url" content="{canonical}" />
+   <meta property="og:type" content="website" />
+   <meta property="og:site_name" content="Aside Paving" />
+   <meta name="twitter:card" content="summary_large_image" />
+   <meta name="twitter:title" content="{title}" />
+   <meta name="twitter:description" content="{description}" />
+   {schema && <script type="application/ld+json">{schema}</script>}
+
+
+═══════════════════════════════════════
+STEP 3 — Sitemap keywords priority
+═══════════════════════════════════════
+
+Update or create public/sitemap.xml with correct priorities and changefreq:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
+  <url><loc>https://asidepaving.ie/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://asidepaving.ie/driveways</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asidepaving.ie/patios</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asidepaving.ie/block-paving</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asidepaving.ie/garden-walls</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asidepaving.ie/artificial-grass</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asidepaving.ie/locations</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://asidepaving.ie/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://asidepaving.ie/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Generate all 675 location pages dynamically -->
+  <!-- 135 towns × 5 services -->
+  <!-- Use the locationData and serviceData slugs to generate entries -->
+  <!-- Each entry: priority 0.7, changefreq monthly -->
+  <!-- Pattern: https://asidepaving.ie/{service-slug}?location={town-slug} -->
+
+</urlset>
+
+Generate all 675 location entries programmatically using the locationData keys and service slugs:
+["driveways","patios","block-paving","garden-walls","artificial-grass"]
+
+Write a script at scripts/generate-sitemap.ts that:
+1. Imports locationData and service slugs
+2. Generates all combinations
+3. Writes to public/sitemap.xml
+4. Add "generate:sitemap" to package.json scripts: "tsx scripts/generate-sitemap.ts"
+5. Run it immediately: pnpm generate:sitemap
+
+
+═══════════════════════════════════════
+STEP 4 — robots.txt
+═══════════════════════════════════════
+
+Create or update public/robots.txt:
+
+User-agent: *
+Allow: /
+
+Sitemap: https://asidepaving.ie/sitemap.xml
+
+Disallow: /api/
+
+
+═══════════════════════════════════════
+STEP 5 — Global site meta (index.html)
+═══════════════════════════════════════
+
+Update the base index.html to include these defaults (SSR will override per-page):
+
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Aside Paving" />
+<meta name="geo.region" content="IE" />
+<meta name="geo.placename" content="Dublin, Ireland" />
+<meta name="geo.position" content="53.3498;-6.2603" />
+<meta name="ICBM" content="53.3498, -6.2603" />
+<meta property="og:locale" content="en_IE" />
+<meta property="og:site_name" content="Aside Paving" />
+
+Also add this LocalBusiness schema to index.html base:
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Aside Paving",
+  "foundingDate": "1985",
+  "url": "https://asidepaving.ie",
+  "telephone": "ASIDE_PAVING_PHONE",
+  "email": "ASIDE_PAVING_EMAIL",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "IE"
+  },
+  "areaServed": ["Dublin", "Kildare", "Meath"],
+  "serviceType": ["Driveways", "Patios", "Block Paving", "Garden Walls", "Artificial Grass"],
+  "priceRange": "$$",
+  "openingHours": "Mo-Sa 08:00-18:00"
+}
+</script>
+
+Replace ASIDE_PAVING_PHONE and ASIDE_PAVING_EMAIL with the actual values from the existing site.
+
+After all steps complete, run:
+curl -s http://localhost:3000/driveways?location=swords | grep -i "title\|description\|keywords\|canonical" | head -20
