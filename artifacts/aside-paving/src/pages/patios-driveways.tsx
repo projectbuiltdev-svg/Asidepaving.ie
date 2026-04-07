@@ -90,6 +90,7 @@ export default function PatiosDriveways() {
         </div>
       </section>
 
+      <ContactForm />
       <FreeQuoteCTA />
       <TestimonialsSection />
     </Layout>

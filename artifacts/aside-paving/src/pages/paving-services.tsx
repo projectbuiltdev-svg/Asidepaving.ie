@@ -86,6 +86,7 @@ export default function PavingServices() {
         </div>
       </section>
 
+      <ContactForm />
       <FreeQuoteCTA />
       <TestimonialsSection />
     </Layout>

@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useSearch } from "wouter";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/shared/ContactForm";
 import { CONTACT_INFO, IMAGES } from "@/lib/constants";
 import { locationData } from "@/data/locationData";
 import { serviceData } from "@/data/serviceData";
@@ -322,6 +323,8 @@ export default function LocationService({ service }: { service: string }) {
           </div>
         </div>
       </section>
+
+      <ContactForm />
     </Layout>
   );
 }
