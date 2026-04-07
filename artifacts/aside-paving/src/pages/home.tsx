@@ -57,14 +57,14 @@ export default function Home() {
               FULLY REG. INSURED CONTRACTOR
             </span>
             <h1 className="text-4xl md:text-6xl font-serif font-bold leading-tight mb-4">
-              TJ's Aside Paving
+              Aside Paving
             </h1>
             <h2 className="text-xl md:text-2xl font-medium text-gray-300 mb-8 tracking-wide">
               PROFESSIONAL DRIVEWAY & PATIO SPECIALISTS | EST.1985
             </h2>
             
             <p className="text-lg text-gray-200 mb-6 leading-relaxed">
-              TJ's Aside Paving provides an extensive selection of paving options for both consumer and commercial businesses. We are experts in our field with decades of professional experience and happy testimonials from highly satisfied clients.
+              Aside Paving provides an extensive selection of paving options for both consumer and commercial businesses. We are experts in our field with decades of professional experience and happy testimonials from highly satisfied clients.
             </p>
             
             <p className="text-lg text-gray-200 mb-8 leading-relaxed">

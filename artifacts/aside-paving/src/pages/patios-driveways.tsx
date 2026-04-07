@@ -32,7 +32,7 @@ export default function PatiosDriveways() {
             </span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Patios & Driveways</h1>
             <div className="h-1 w-24 bg-primary mb-6" />
-            <h2 className="text-xl font-bold text-gray-300">TJ's Aside Paving</h2>
+            <h2 className="text-xl font-bold text-gray-300">Aside Paving</h2>
             <p className="text-lg text-gray-300">Professional Driveway & Patio Specialist | EST. 1985</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function PatiosDriveways() {
             <div className="md:w-1/2 prose prose-lg">
               <h3 className="text-2xl font-serif font-bold text-foreground mb-4">Professional Contractors</h3>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                TJ's Aside Paving are professional patio and driveway contractors with decades of experience.
+                Aside Paving are professional patio and driveway contractors with decades of experience.
               </p>
               <p className="text-lg leading-relaxed text-muted-foreground mt-4">
                 We provide a wide range of patio materials such as asphalt, imprinted concrete, sandstone, porcelain, granite, limestone, cobblelock, gravel, tarmac, resin and concrete slabs of differing designs and colours. Additional options include Hot tar and chip in all choice of colours.

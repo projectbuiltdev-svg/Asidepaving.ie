@@ -32,7 +32,7 @@ export default function WallsPillars() {
             </span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Walls & Pillars</h1>
             <div className="h-1 w-24 bg-primary mb-6" />
-            <h2 className="text-xl font-bold text-gray-300">TJ's Aside Paving</h2>
+            <h2 className="text-xl font-bold text-gray-300">Aside Paving</h2>
             <p className="text-lg text-gray-300">Professional Driveway & Patio Specialist | EST. 1985</p>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function WallsPillars() {
             <h3 className="text-2xl font-serif font-bold text-foreground mb-4">Transform Your Outdoor Spaces</h3>
             
             <p className="text-lg leading-relaxed text-muted-foreground mb-4">
-              TJ's Aside Paving Has a wide range of building materials options for pillars or retaining walls, such as concrete blocks, sandstone, brick or specific materials clients want to use.
+              Aside Paving has a wide range of building materials options for pillars or retaining walls, such as concrete blocks, sandstone, brick or specific materials clients want to use.
             </p>
             
             <p className="text-lg leading-relaxed text-muted-foreground mb-4">

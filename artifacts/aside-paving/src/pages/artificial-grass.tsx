@@ -56,7 +56,7 @@ export default function ArtificialGrass() {
             </span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Artificial Grass Installations</h1>
             <div className="h-1 w-24 bg-primary mb-6" />
-            <h2 className="text-xl font-bold text-gray-300">TJ's Aside Paving</h2>
+            <h2 className="text-xl font-bold text-gray-300">Aside Paving</h2>
             <p className="text-lg text-gray-300">Professional Driveway & Patio Specialist | EST. 1985</p>
           </div>
         </div>

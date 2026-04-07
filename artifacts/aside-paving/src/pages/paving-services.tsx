@@ -39,7 +39,7 @@ export default function PavingServices() {
             </span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Paving Services</h1>
             <div className="h-1 w-24 bg-primary mb-6" />
-            <h2 className="text-xl font-bold text-gray-300">TJ's Aside Paving</h2>
+            <h2 className="text-xl font-bold text-gray-300">Aside Paving</h2>
             <p className="text-lg text-gray-300">Professional Driveway & Patio Specialist | EST. 1985</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function PavingServices() {
           </div>
           <div className="md:w-1/2 prose prose-lg">
             <p className="text-lg leading-relaxed text-muted-foreground">
-              TJ's Aside Paving provides an extensive selection of paving options for both consumer and commercial businesses. We are experts in our field with decades of professional experience and happy testimonials from highly satisfied clients.
+              Aside Paving provides an extensive selection of paving options for both consumer and commercial businesses. We are experts in our field with decades of professional experience and happy testimonials from highly satisfied clients.
             </p>
             <p className="text-lg leading-relaxed text-muted-foreground mt-4">
               Choose paving options such as granite, limestone, asphalt, imprinted concrete, resin sandstone, porcelaine, cobblelock, gravel, tarmac and concrete slabs of various colors and designs. Additional options include Hot tar and chip paving in all choice of colours.
