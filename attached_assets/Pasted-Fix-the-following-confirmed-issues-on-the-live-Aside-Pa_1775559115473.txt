@@ -1,0 +1,218 @@
+Fix the following confirmed issues on the live Aside Paving site. 
+The page is returning 4KB which means SSR content is not rendering.
+Blog, FAQ, testimonials components were created but not added to pages.
+Schema only has 1 block. Fix all of these now.
+
+═══════════════════════════════════════
+STEP 1 — DIAGNOSE SSR SIZE ISSUE
+═══════════════════════════════════════
+
+Run this first to see what the server actually returns:
+
+curl -s http://localhost:3000/ | wc -c
+curl -s http://localhost:3000/ | grep -c "<section\|<div class"
+
+If under 10000 bytes the SSR is not rendering components into HTML.
+Check server.ts — ensure it calls renderToString and injects into index.html.
+
+Show the current server.ts SSR render block:
+grep -A 20 "renderToString\|render(" server.ts
+
+
+═══════════════════════════════════════
+STEP 2 — ADD COMPONENTS TO HOMEPAGE
+═══════════════════════════════════════
+
+Find src/pages/Home.tsx (or wherever the homepage component lives):
+find . -name "*.tsx" | xargs grep -l "hero-home\|Est. 1985\|DRIVEWAY" | head -5
+
+Open that file and add these imports at the top:
+import { TestimonialsSection } from "@/components/TestimonialsSection"
+import { HomepageFAQ } from "@/components/HomepageFAQ"
+
+Then add these components in the JSX in this order near the bottom
+(before the final CTA or contact section, above the footer):
+
+1. <TestimonialsSection />
+2. <HomepageFAQ />
+
+Also add the Popular Locations section:
+
+import { Link } from "wouter"
+
+// Add this section above the footer:
+<section className="py-12 bg-gray-50">
+  <div className="container mx-auto px-4">
+    <h2 className="text-2xl font-bold text-center mb-2">
+      Paving Services Across Dublin, Kildare & Meath
+    </h2>
+    <p className="text-gray-500 text-center text-sm mb-8">
+      Driveways, patios and block paving serving 135 areas
+    </p>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+      {[
+        { text: "Driveways Swords", href: "/driveways?location=swords" },
+        { text: "Patios Dundrum", href: "/patios?location=dundrum" },
+        { text: "Paving Lucan", href: "/driveways?location=lucan" },
+        { text: "Driveways Naas", href: "/driveways?location=naas" },
+        { text: "Patios Malahide", href: "/patios?location=malahide" },
+        { text: "Paving Navan", href: "/driveways?location=navan" },
+        { text: "Block Paving Blanchardstown", href: "/block-paving?location=blanchardstown" },
+        { text: "Driveways Maynooth", href: "/driveways?location=maynooth" },
+        { text: "Patios Blackrock", href: "/patios?location=blackrock" },
+        { text: "Paving Ashbourne", href: "/driveways?location=ashbourne" },
+        { text: "Driveways Sandyford", href: "/driveways?location=sandyford" },
+        { text: "Block Paving Celbridge", href: "/block-paving?location=celbridge" },
+      ].map(link => (
+        <Link key={link.href} href={link.href}
+          className="text-xs text-center py-2 px-3 rounded border border-gray-200 hover:border-primary hover:text-primary transition-colors">
+          {link.text}
+        </Link>
+      ))}
+    </div>
+    <div className="text-center mt-6">
+      <Link href="/locations" className="text-primary text-sm font-medium hover:underline">
+        View all 135 service areas →
+      </Link>
+    </div>
+  </div>
+</section>
+
+
+═══════════════════════════════════════
+STEP 3 — ADD FAQ TO SERVICE PAGES
+═══════════════════════════════════════
+
+Find each service page component:
+grep -rl "driveways\|Driveways" src/pages/ | head -10
+
+For each service page (Driveways, Patios, BlockPaving, GardenWalls, ArtificialGrass)
+add at the bottom of the JSX above the footer:
+
+import { ServiceFAQ } from "@/components/ServiceFAQ"
+import { serviceFAQs } from "@/data/serviceFAQs"
+
+<ServiceFAQ
+  serviceSlug="driveways"
+  faqs={serviceFAQs["driveways"]}
+/>
+
+Change serviceSlug and faqs key to match each page.
+
+
+═══════════════════════════════════════
+STEP 4 — FIX ssr-meta.ts SCHEMA
+═══════════════════════════════════════
+
+Find and show the current ssr-meta.ts:
+find . -name "ssr-meta*" | xargs cat
+
+Update the homepage schema injection to include ALL of these
+as separate <script type="application/ld+json"> tags:
+
+BLOCK 1 — LocalBusiness with AggregateRating:
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Aside Paving",
+  "url": "https://asidepaving.ie",
+  "telephone": "PHONE",
+  "foundingDate": "1985",
+  "priceRange": "$$",
+  "address": { "@type": "PostalAddress", "addressCountry": "IE", "addressRegion": "Dublin" },
+  "geo": { "@type": "GeoCoordinates", "latitude": 53.3498, "longitude": -6.2603 },
+  "areaServed": ["Dublin", "Kildare", "Meath"],
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "6",
+    "bestRating": "5"
+  },
+  "review": [
+    { "@type": "Review", "author": { "@type": "Person", "name": "Michael O'Brien" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-11-15", "reviewBody": "Aside Paving did a fantastic job on our cobblelock driveway. Professional, clean and finished exactly on time." },
+    { "@type": "Review", "author": { "@type": "Person", "name": "Sarah Connolly" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-10-20", "reviewBody": "We had a natural sandstone patio installed and it transformed our garden. Excellent experience throughout." },
+    { "@type": "Review", "author": { "@type": "Person", "name": "James Murphy" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-09-10", "reviewBody": "The artificial grass looks incredible and the kids love it. No more muddy footprints. Great team." }
+  ]
+}
+
+BLOCK 2 — WebSite:
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Aside Paving",
+  "url": "https://asidepaving.ie"
+}
+
+BLOCK 3 — FAQPage (homepage FAQs):
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How much does a new driveway cost in Dublin?", "acceptedAnswer": { "@type": "Answer", "text": "A standard cobblelock or block paving driveway in Dublin costs €60–€100 per m² installed. For an average 50m² driveway expect €3,000–€5,000 depending on material and access. We provide free no-obligation quotes." } },
+    { "@type": "Question", "name": "What areas do you cover?", "acceptedAnswer": { "@type": "Answer", "text": "Aside Paving serves all areas across County Dublin, County Kildare and County Meath — over 135 towns and villages." } },
+    { "@type": "Question", "name": "How long has Aside Paving been in business?", "acceptedAnswer": { "@type": "Answer", "text": "Aside Paving was established in 1985 — over 40 years of experience in driveways, patios, block paving, garden walls and artificial grass." } },
+    { "@type": "Question", "name": "Do you offer a guarantee?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All Aside Paving installations come with a written workmanship guarantee. We stand behind the quality of every job." } },
+    { "@type": "Question", "name": "Do I need planning permission for a new driveway?", "acceptedAnswer": { "@type": "Answer", "text": "In most cases no. Driveway works on private residential properties are generally exempted development in Ireland. We advise on this during your free quote." } }
+  ]
+}
+
+For service pages inject:
+BLOCK 1 — LocalBusiness (no reviews)
+BLOCK 2 — Service schema
+BLOCK 3 — FAQPage using serviceFAQs[serviceSlug].slice(0,5)
+
+For location pages inject:
+BLOCK 1 — LocalBusiness with location geo
+BLOCK 2 — FAQPage using first 5 service FAQs adapted for location
+
+
+═══════════════════════════════════════
+STEP 5 — ADD SITEMAP LINK TO HTML HEAD
+═══════════════════════════════════════
+
+In index.html add inside <head>:
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+Also ensure public/robots.txt exists with:
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://asidepaving.ie/sitemap.xml
+
+Check it exists:
+cat public/robots.txt 2>/dev/null || echo "MISSING"
+
+
+═══════════════════════════════════════
+STEP 6 — VERIFY ALL FIXES
+═══════════════════════════════════════
+
+curl -s http://localhost:3000/ | wc -c
+# Expected: 20000+ bytes (full SSR content)
+
+curl -s http://localhost:3000/ | grep -c "application/ld+json"
+# Expected: 3
+
+curl -s http://localhost:3000/ | grep "FAQPage" | wc -l
+# Expected: 1
+
+curl -s http://localhost:3000/ | grep "aggregateRating" | wc -l
+# Expected: 1
+
+curl -s http://localhost:3000/ | grep "sitemap"
+# Expected: sitemap link in head
+
+curl -s http://localhost:3000/driveways | grep -c "application/ld+json"
+# Expected: 2+ (LocalBusiness + FAQPage)
+
+curl -s http://localhost:3000/robots.txt
+# Expected: robots.txt with sitemap URL
+
+If page is still under 10KB check that TestimonialsSection and
+HomepageFAQ were actually added to the homepage component and
+that the homepage component is being rendered server-side.
+Show: grep -n "Testimonial\|HomepageFAQ\|ServiceFAQ" src/pages/*.tsx

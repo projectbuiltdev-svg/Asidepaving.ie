@@ -6,6 +6,7 @@ import { pageMeta, serviceKeywords } from "./src/data/seoMeta";
 import { locationData } from "./src/data/locationData";
 import { serviceData } from "./src/data/serviceData";
 import { blogPosts } from "./src/data/blogPosts";
+import { serviceFAQs } from "./src/data/serviceFAQs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isProduction = process.env.NODE_ENV === "production";
@@ -35,6 +36,39 @@ function getMetaForUrl(url: string) {
       const keywords = serviceKeywords[serviceSlug] || [];
       const canonical = `https://asidepaving.ie/${serviceSlug}?location=${locationSlug}`;
 
+      const localBizSchema = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Aside Paving",
+        "description": `${service.title} in ${locationName}`,
+        "url": canonical,
+        "telephone": "045395149",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": locationName,
+          "addressRegion": `Co. ${county}`,
+          "addressCountry": "IE",
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": locData.lat,
+          "longitude": locData.lng,
+        },
+        "areaServed": `${locationName}, Co. ${county}`,
+        "foundingDate": "1985",
+        "priceRange": "$$",
+      };
+
+      const locationFaqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": (serviceFAQs[serviceSlug] || []).slice(0, 5).map(faq => ({
+          "@type": "Question",
+          "name": faq.question.includes(locationName) ? faq.question : faq.question.replace('?', ` in ${locationName}?`),
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+        }))
+      };
+
       return {
         title: `${service.title} in ${locationName}, Co. ${county} | Aside Paving Est. 1985`,
         description: `Expert ${service.title.toLowerCase()} in ${locationName}, Co. ${county}. ${service.features.slice(0, 3).join(", ")}. Est. 1985. Free quotes. Serving Dublin, Kildare & Meath.`,
@@ -50,28 +84,7 @@ function getMetaForUrl(url: string) {
           `patios ${locationName}`,
         ].join(", "),
         canonical,
-        schema: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "name": "Aside Paving",
-          "description": `${service.title} in ${locationName}`,
-          "url": canonical,
-          "telephone": "045395149",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": locationName,
-            "addressRegion": `Co. ${county}`,
-            "addressCountry": "IE",
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": locData.lat,
-            "longitude": locData.lng,
-          },
-          "areaServed": `${locationName}, Co. ${county}`,
-          "foundingDate": "1985",
-          "priceRange": "$$",
-        }),
+        schema: JSON.stringify(localBizSchema) + `</script><script type="application/ld+json">` + JSON.stringify(locationFaqSchema),
       };
     }
   }
@@ -101,12 +114,81 @@ function getMetaForUrl(url: string) {
 
   const staticMeta = pageMeta[pathname];
   if (staticMeta) {
+    let schema: string | null = null;
+
+    if (pathname === "/") {
+      const homeBiz = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Aside Paving",
+        "url": "https://asidepaving.ie",
+        "telephone": "045395149",
+        "foundingDate": "1985",
+        "priceRange": "$$",
+        "address": { "@type": "PostalAddress", "addressCountry": "IE", "addressRegion": "Dublin" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 53.3498, "longitude": -6.2603 },
+        "areaServed": ["Dublin", "Kildare", "Meath"],
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" }
+        ],
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "6", "bestRating": "5" },
+        "review": [
+          { "@type": "Review", "author": { "@type": "Person", "name": "Michael O'Brien" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-11-15", "reviewBody": "Aside Paving did a fantastic job on our cobblelock driveway. Professional, clean and finished exactly on time." },
+          { "@type": "Review", "author": { "@type": "Person", "name": "Sarah Connolly" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-10-20", "reviewBody": "We had a natural sandstone patio installed and it transformed our garden. Excellent experience throughout." },
+          { "@type": "Review", "author": { "@type": "Person", "name": "James Murphy" }, "reviewRating": { "@type": "Rating", "ratingValue": 5 }, "datePublished": "2024-09-10", "reviewBody": "The artificial grass looks incredible and the kids love it. No more muddy footprints. Great team." }
+        ]
+      };
+      const homeWebsite = { "@context": "https://schema.org", "@type": "WebSite", "name": "Aside Paving", "url": "https://asidepaving.ie" };
+      const homeFaq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How much does a new driveway cost in Dublin?", "acceptedAnswer": { "@type": "Answer", "text": "A standard cobblelock or block paving driveway in Dublin costs €60–€100 per m² installed. For an average 50m² driveway expect €3,000–€5,000 depending on material and access. We provide free no-obligation quotes." } },
+          { "@type": "Question", "name": "What areas do you cover?", "acceptedAnswer": { "@type": "Answer", "text": "Aside Paving serves all areas across County Dublin, County Kildare and County Meath — over 135 towns and villages." } },
+          { "@type": "Question", "name": "How long has Aside Paving been in business?", "acceptedAnswer": { "@type": "Answer", "text": "Aside Paving was established in 1985 — over 40 years of experience in driveways, patios, block paving, garden walls and artificial grass." } },
+          { "@type": "Question", "name": "Do you offer a guarantee?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All Aside Paving installations come with a written workmanship guarantee. We stand behind the quality of every job." } },
+          { "@type": "Question", "name": "Do I need planning permission for a new driveway?", "acceptedAnswer": { "@type": "Answer", "text": "In most cases no. Driveway works on private residential properties are generally exempted development in Ireland. We advise on this during your free quote." } }
+        ]
+      };
+      schema = JSON.stringify(homeBiz) + `</script><script type="application/ld+json">` + JSON.stringify(homeWebsite) + `</script><script type="application/ld+json">` + JSON.stringify(homeFaq);
+    }
+
+    const serviceSlugMap: Record<string, string> = {
+      "/driveways": "driveways", "/patios": "patios", "/block-paving": "block-paving",
+      "/garden-walls": "garden-walls", "/artificial-grass": "artificial-grass"
+    };
+    const svcSlug = serviceSlugMap[pathname];
+    if (svcSlug && serviceFAQs[svcSlug]) {
+      const svcBiz = {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Aside Paving",
+        "url": `https://asidepaving.ie${pathname}`,
+        "telephone": "045395149",
+        "foundingDate": "1985",
+        "priceRange": "$$",
+        "address": { "@type": "PostalAddress", "addressCountry": "IE", "addressRegion": "Dublin" },
+        "areaServed": ["Dublin", "Kildare", "Meath"]
+      };
+      const svcFaq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": serviceFAQs[svcSlug].slice(0, 5).map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+        }))
+      };
+      schema = JSON.stringify(svcBiz) + `</script><script type="application/ld+json">` + JSON.stringify(svcFaq);
+    }
+
     return {
       title: staticMeta.title,
       description: staticMeta.description,
       keywords: staticMeta.keywords,
       canonical: `https://asidepaving.ie${pathname === "/" ? "" : pathname}`,
-      schema: null,
+      schema,
     };
   }
 
