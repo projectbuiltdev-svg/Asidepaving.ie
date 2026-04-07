@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
+import { ContactForm } from "@/components/shared/ContactForm";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -113,6 +114,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ContactForm />
 
       {/* Info Section */}
       <section className="py-16 bg-white">
