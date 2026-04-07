@@ -8,12 +8,16 @@ export interface BlogPost {
   readTime: string;
   publishDate: string;
   excerpt: string;
+  thumbnail: string;
+  thumbnailAlt: string;
   content: string;
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "how-much-does-a-driveway-cost-ireland",
+    thumbnail: "/images/blog/driveway-cost.webp",
+    thumbnailAlt: "Block paving driveway installation cost guide Ireland",
     title: "How Much Does a New Driveway Cost in Ireland? (2025 Guide)",
     metaTitle: "Driveway Cost Ireland 2025 | Block Paving, Tarmac & Cobblelock Prices",
     metaDescription: "How much does a new driveway cost in Ireland in 2025? Complete price guide for block paving, cobblelock, tarmac and resin bound driveways. Get accurate estimates.",
@@ -38,7 +42,7 @@ Installing a new driveway is one of the most impactful home improvements you can
 
 **Size of the driveway** — the bigger the area, the lower the cost per square metre as fixed costs are spread.
 
-**Material choice** — natural stone and resin bound are premium options. Tarmac and gravel are the most budget-friendly.
+**Material choice** — natural stone and resin bound are premium options. Tarmac and gravel are the most budget-friendly. See our full [block paving services](/block-paving) for more options.
 
 **Groundwork and excavation** — removing an existing surface adds €500–€1,500 to the job.
 
@@ -54,6 +58,8 @@ Aside Paving has been installing driveways across Dublin, Kildare and Meath sinc
   },
   {
     slug: "block-paving-vs-cobblelock-ireland",
+    thumbnail: "/images/blog/block-paving-cobblelock.webp",
+    thumbnailAlt: "Block paving vs cobblelock driveway comparison Ireland",
     title: "Block Paving vs Cobblelock: What's the Difference?",
     metaTitle: "Block Paving vs Cobblelock Ireland | Which is Better for Your Driveway?",
     metaDescription: "Block paving vs cobblelock — what's the difference and which is better for your driveway in Ireland? Expert guide from Aside Paving.",
@@ -80,12 +86,14 @@ Block paving is the broader category. It includes tegula blocks, tumbled blocks,
 
 ## Which Should You Choose?
 
-For a budget-conscious driveway that will last decades — cobblelock is excellent value. For a premium finish that enhances kerb appeal significantly — premium block paving is worth the investment.
+For a budget-conscious driveway that will last decades — cobblelock is excellent value. For a premium finish that enhances kerb appeal significantly — premium block paving is worth the investment. View our [driveway installation services](/driveways) for examples of both.
 
 [Get a free quote from Aside Paving](/contact) and we'll help you choose the right option for your home and budget.`
   },
   {
     slug: "how-to-clean-block-paving-ireland",
+    thumbnail: "/images/blog/clean-block-paving.webp",
+    thumbnailAlt: "Clean block paving driveway maintenance Ireland",
     title: "How to Clean Block Paving: Complete Guide for Irish Homeowners",
     metaTitle: "How to Clean Block Paving Ireland | Remove Weeds, Stains & Moss",
     metaDescription: "How to clean block paving driveways in Ireland. Remove moss, weeds, oil stains and dirt. Step-by-step guide from Aside Paving.",
@@ -129,6 +137,8 @@ Need your driveway professionally cleaned or resealed? [Contact Aside Paving](/c
   },
   {
     slug: "artificial-grass-pros-cons-ireland",
+    thumbnail: "/images/blog/artificial-grass.webp",
+    thumbnailAlt: "Artificial grass garden installation pros and cons Ireland",
     title: "Artificial Grass: Pros & Cons for Irish Gardens (2025)",
     metaTitle: "Artificial Grass Pros & Cons Ireland 2025 | Is it Worth It?",
     metaDescription: "Is artificial grass worth it for Irish gardens? Complete pros and cons guide including cost, maintenance, drainage and lifespan. From Aside Paving.",
@@ -165,12 +175,14 @@ Artificial grass has become increasingly popular in Irish gardens over the last 
 
 ### Who is it Best For?
 
-Artificial grass is ideal for: families with young children, pet owners, people with limited mobility, front gardens for kerb appeal, side passages and shaded areas where real grass won't grow.
+Artificial grass is ideal for: families with young children, pet owners, people with limited mobility, front gardens for kerb appeal, side passages and shaded areas where real grass won't grow. Browse our [artificial grass installations](/artificial-grass) to see examples.
 
 [Get a free artificial grass quote from Aside Paving](/contact) — serving Dublin, Kildare and Meath.`
   },
   {
     slug: "patio-ideas-ireland",
+    thumbnail: "/images/blog/patio-ideas.webp",
+    thumbnailAlt: "Beautiful patio ideas and designs for Irish gardens",
     title: "10 Patio Ideas for Irish Gardens in 2025",
     metaTitle: "Patio Ideas Ireland 2025 | Natural Stone, Porcelain & Design Inspiration",
     metaDescription: "10 beautiful patio ideas for Irish gardens in 2025. Natural stone, porcelain, sandstone and more. Design inspiration from Aside Paving.",
@@ -211,10 +223,14 @@ A circular design creates a focal point in the garden. Perfect for a fire pit or
 ### 10. Patio with Pergola Foundation
 Lay a large, level patio as the base for a pergola or garden room structure.
 
+View our [patio and driveway services](/patios) to see examples of these styles installed by Aside Paving.
+
 [Get a free patio quote from Aside Paving](/contact) — serving Dublin, Kildare and Meath since 1985.`
   },
   {
     slug: "planning-permission-driveway-ireland",
+    thumbnail: "/images/blog/planning-permission.webp",
+    thumbnailAlt: "Driveway planning permission guide for Ireland",
     title: "Do You Need Planning Permission for a Driveway in Ireland?",
     metaTitle: "Planning Permission for Driveways Ireland | What You Need to Know",
     metaDescription: "Do you need planning permission for a new driveway in Ireland? Complete guide covering rules, exemptions and what to check before you start.",
@@ -255,6 +271,8 @@ If your new driveway requires a dropped kerb on a public footpath, you'll need p
   },
   {
     slug: "best-driveway-material-ireland",
+    thumbnail: "/images/blog/best-driveway-material.webp",
+    thumbnailAlt: "Best driveway materials compared for Irish weather",
     title: "Best Driveway Material for Irish Weather (2025 Comparison)",
     metaTitle: "Best Driveway Material Ireland 2025 | Block Paving, Tarmac & Resin Compared",
     metaDescription: "What is the best driveway material for Irish weather? We compare block paving, cobblelock, tarmac, resin bound and gravel for durability, cost and looks.",
@@ -292,6 +310,8 @@ For premium kerb appeal: **resin bound** — stunning finish and fully permeable
   },
   {
     slug: "garden-wall-ideas-ireland",
+    thumbnail: "/images/blog/garden-wall-ideas.webp",
+    thumbnailAlt: "Garden wall ideas and designs for Irish homes",
     title: "Garden Wall Ideas for Irish Homes (2025 Inspiration Guide)",
     metaTitle: "Garden Wall Ideas Ireland 2025 | Brick, Block & Stone Wall Designs",
     metaDescription: "Beautiful garden wall ideas for Irish homes in 2025. Brick, block, stone and rendered walls. Design inspiration and cost guide from Aside Paving.",
@@ -321,6 +341,8 @@ Where there's a level change in the garden, a retaining wall creates terracing a
 
 ### 6. Piers and Railing Combination
 Brick or block piers with metal railings between them — classic Irish front garden style that provides boundary definition while remaining open.
+
+View our [garden walls and pillars portfolio](/garden-walls) for examples of these styles.
 
 ### Garden Wall Costs in Ireland (2025)
 

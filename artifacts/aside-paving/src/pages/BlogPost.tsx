@@ -161,6 +161,7 @@ export default function BlogPost() {
     "@type": "Article",
     "headline": post.title,
     "description": post.excerpt,
+    "image": post.thumbnail,
     "author": { "@type": "Organization", "name": "Aside Paving" },
     "publisher": { "@type": "Organization", "name": "Aside Paving", "url": "https://asidepaving.ie" },
     "datePublished": post.publishDate,
@@ -190,6 +191,13 @@ export default function BlogPost() {
               </div>
 
               <h1 className="text-3xl md:text-4xl font-serif font-bold mb-6">{post.title}</h1>
+
+              <img
+                src={post.thumbnail}
+                alt={post.thumbnailAlt}
+                className="w-full h-64 md:h-80 object-cover rounded-lg mb-8"
+              />
+
               <p className="text-lg text-muted-foreground mb-8 border-l-4 border-primary pl-4">{post.excerpt}</p>
 
               <div className="prose prose-lg max-w-none">
