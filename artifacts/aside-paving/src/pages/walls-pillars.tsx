@@ -43,7 +43,7 @@ export default function WallsPillars() {
           <div className="md:w-1/2">
             <img 
               src={IMAGES.hero.walls} 
-              alt="Retaining Walls and Pillars" 
+              alt="Garden wall construction by Aside Paving Dublin" 
               className="rounded-lg shadow-lg w-full h-auto object-cover aspect-4/3"
             />
           </div>

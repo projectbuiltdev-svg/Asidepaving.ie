@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { pageMeta, serviceKeywords } from "./src/data/seoMeta";
 import { locationData } from "./src/data/locationData";
 import { serviceData } from "./src/data/serviceData";
+import { blogPosts } from "./src/data/blogPosts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isProduction = process.env.NODE_ENV === "production";
@@ -70,6 +71,29 @@ function getMetaForUrl(url: string) {
           "areaServed": `${locationName}, Co. ${county}`,
           "foundingDate": "1985",
           "priceRange": "$$",
+        }),
+      };
+    }
+  }
+
+  const blogMatch = pathname.match(/^\/blog\/(.+)$/);
+  if (blogMatch) {
+    const post = blogPosts.find(p => p.slug === blogMatch[1]);
+    if (post) {
+      return {
+        title: post.metaTitle,
+        description: post.metaDescription,
+        keywords: post.keywords,
+        canonical: `https://asidepaving.ie/blog/${post.slug}`,
+        schema: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": post.title,
+          "description": post.excerpt,
+          "author": { "@type": "Organization", "name": "Aside Paving" },
+          "publisher": { "@type": "Organization", "name": "Aside Paving", "url": "https://asidepaving.ie" },
+          "datePublished": post.publishDate,
+          "url": `https://asidepaving.ie/blog/${post.slug}`
         }),
       };
     }

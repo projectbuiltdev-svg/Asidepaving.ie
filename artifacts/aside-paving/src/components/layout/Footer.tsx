@@ -82,6 +82,9 @@ export function Footer() {
             <Link href="/locations" className="text-gray-300 hover:text-green-400 transition-colors font-medium">
               All Areas
             </Link>
+            <Link href="/blog" className="text-gray-300 hover:text-green-400 transition-colors font-medium">
+              Blog
+            </Link>
             <Link href="/contact" className="text-amber-400 hover:text-amber-300 transition-colors font-semibold">
               Free Quote
             </Link>

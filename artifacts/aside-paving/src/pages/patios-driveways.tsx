@@ -61,7 +61,7 @@ export default function PatiosDriveways() {
             <div className="md:w-1/2">
               <img 
                 src={IMAGES.hero.patios} 
-                alt="Patio and Driveway installation" 
+                alt="Natural stone patio installation by Aside Paving Dublin" 
                 className="rounded-lg shadow-xl w-full h-auto object-cover aspect-video"
               />
             </div>

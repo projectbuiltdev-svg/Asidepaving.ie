@@ -4,6 +4,9 @@ import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
 import { ContactForm } from "@/components/shared/ContactForm";
 import { internalLinkSets } from "@/components/InternalLinks";
 import { SchemaScript, organisationSchema, getLocalBusinessSchema, aggregateRatingSchema, websiteSchema } from "@/components/SchemaMarkup";
+import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
+import { ReviewsSection } from "@/components/ReviewsSection";
+import { HomepageFAQ } from "@/components/HomepageFAQ";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -161,7 +164,13 @@ export default function Home() {
         </div>
       </section>
 
+      <BeforeAfterGallery />
+
+      <ReviewsSection />
+
       <FreeQuoteCTA />
+
+      <HomepageFAQ />
       
       <TestimonialsSection />
     </Layout>

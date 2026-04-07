@@ -43,6 +43,11 @@ export const pageMeta: Record<string, { title: string; description: string; keyw
     title: "About Aside Paving | Est. 1985 | 40+ Years Paving Experience",
     description: "Aside Paving has been serving homes across Dublin, Kildare and Meath since 1985. Learn about our 40+ years of expert paving, driveways and outdoor space experience.",
     keywords: "about aside paving, paving company Dublin history, established paving contractor, experienced pavers Dublin, trusted paving company Ireland"
+  },
+  "/blog": {
+    title: "Paving Blog | Driveway & Patio Guides | Aside Paving",
+    description: "Expert guides, tips and advice on driveways, patios, block paving, artificial grass and garden walls in Ireland. From Aside Paving, Est. 1985.",
+    keywords: "paving blog, driveway guide Ireland, patio ideas Ireland, block paving tips, artificial grass advice, garden wall ideas"
   }
 }
 

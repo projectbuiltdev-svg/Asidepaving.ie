@@ -10,6 +10,8 @@ import PatiosDriveways from "@/pages/patios-driveways";
 import WallsPillars from "@/pages/walls-pillars";
 import ArtificialGrassPage from "@/pages/artificial-grass";
 import Locations from "@/pages/Locations";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import { ArtificialGrassRouter } from "@/pages/ArtificialGrassRouter";
 import ServiceRouter from "@/pages/ServiceRouter";
 
@@ -28,6 +30,8 @@ export function AppRoutes() {
       <Route path="/block-paving">{() => <ServiceRouter service="block-paving" />}</Route>
       <Route path="/garden-walls">{() => <ServiceRouter service="garden-walls" />}</Route>
       <Route path="/locations" component={Locations} />
+      <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/blog" component={Blog} />
       <Route component={NotFound} />
     </Switch>
   );

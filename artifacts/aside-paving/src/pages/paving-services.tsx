@@ -50,7 +50,7 @@ export default function PavingServices() {
           <div className="md:w-1/2">
             <img 
               src={IMAGES.hero.paving} 
-              alt="Paving Services" 
+              alt="Block paving driveway installation by Aside Paving Dublin" 
               className="rounded-lg shadow-lg w-full h-auto object-cover aspect-video"
             />
           </div>

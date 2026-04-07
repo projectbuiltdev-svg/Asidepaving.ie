@@ -80,7 +80,7 @@ export default function ArtificialGrass() {
             <div className="md:w-1/2">
               <img 
                 src={IMAGES.hero.grass} 
-                alt="Artificial Grass Installation" 
+                alt="Artificial grass installation by Aside Paving Dublin" 
                 className="rounded-lg shadow-xl w-full h-auto object-cover aspect-4/3"
               />
             </div>
