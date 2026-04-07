@@ -1,0 +1,303 @@
+Critical SEO fixes for Aside Paving. Audit confirmed: no canonical, no schema, 
+no robots meta, no OG tags, wrong business name in title. Fix all of these now.
+
+═══════════════════════════════════════
+STEP 1 — FIX BUSINESS NAME
+═══════════════════════════════════════
+
+Search the entire codebase for "TJ's Aside Paving" and replace with "Aside Paving":
+
+grep -r "TJ's" src/ --include="*.tsx" --include="*.ts" --include="*.html" -l
+
+Replace every instance of:
+- "TJ's Aside Paving" → "Aside Paving"
+- "TJ's" alone where it refers to the business → "Aside Paving"
+
+
+═══════════════════════════════════════
+STEP 2 — FIX ssr-meta.ts (CRITICAL)
+═══════════════════════════════════════
+
+Find server/ssr-meta.ts (or wherever SSR meta injection happens).
+Show me the full current contents first:
+
+cat server/ssr-meta.ts 2>/dev/null || cat src/ssr-meta.ts 2>/dev/null || find . -name "ssr-meta*" -exec cat {} \;
+
+Then update it to inject ALL of the following into every page response.
+The injection must happen server-side by replacing placeholders in index.html.
+
+Add this placeholder to index.html <head>:
+<!--ssr-meta-->
+
+Then in ssr-meta.ts replace <!--ssr-meta--> with the full meta block per page:
+
+function getMetaHTML(pathname: string, search: string): string {
+  const url = new URL(`https://asidepaving.ie${pathname}${search}`)
+  const locationSlug = url.searchParams.get('location')
+  const serviceSlug = pathname.replace('/', '')
+
+  let title = 'Aside Paving | Driveways, Patios & Block Paving | Dublin, Kildare & Meath'
+  let description = 'Expert paving services across Dublin, Kildare and Meath since 1985. Driveways, patios, block paving, garden walls and artificial grass. Free quotes.'
+  let keywords = 'paving Dublin, driveways Dublin, block paving Dublin, patios Dublin, paving contractor Dublin'
+  let canonical = `https://asidepaving.ie${pathname}`
+  let schema = ''
+
+  // LOCATION PAGES
+  if (locationSlug && serviceSlug && ['driveways','patios','block-paving','garden-walls','artificial-grass'].includes(serviceSlug)) {
+    const locationName = locationSlug.split('-').map((w:string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+    const serviceTitles: Record<string,string> = {
+      'driveways': 'Driveways', 'patios': 'Patios',
+      'block-paving': 'Block Paving', 'garden-walls': 'Garden Walls',
+      'artificial-grass': 'Artificial Grass'
+    }
+    const serviceTitle = serviceTitles[serviceSlug] || serviceSlug
+    title = `${serviceTitle} in ${locationName} | Aside Paving Est. 1985`
+    description = `Expert ${serviceTitle.toLowerCase()} in ${locationName}. Professional paving contractors serving ${locationName} and surrounding areas since 1985. Free quotes.`
+    keywords = `${serviceTitle.toLowerCase()} ${locationName}, paving ${locationName}, driveways ${locationName}, patios ${locationName}, paving contractors ${locationName}`
+    canonical = `https://asidepaving.ie/${serviceSlug}?location=${locationSlug}`
+    schema = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Aside Paving",
+      "description": `${serviceTitle} in ${locationName}`,
+      "url": canonical,
+      "telephone": "ASIDE_PAVING_PHONE",
+      "foundingDate": "1985",
+      "areaServed": locationName,
+      "address": { "@type": "PostalAddress", "addressLocality": locationName, "addressCountry": "IE" }
+    })
+  }
+
+  // SERVICE BASE PAGES
+  const serviceMeta: Record<string, {title:string, description:string, keywords:string}> = {
+    '/driveways': {
+      title: 'Driveways Dublin | Block Paving, Cobblelock & Tarmac | Aside Paving Est. 1985',
+      description: 'Professional driveway installation across Dublin, Kildare and Meath. Block paving, cobblelock, tarmac, resin bound. 40+ years experience. Free quotes.',
+      keywords: 'driveways Dublin, driveway installation Dublin, block paving driveways, cobblelock driveways Dublin, tarmac driveways Dublin, new driveway Dublin'
+    },
+    '/patios': {
+      title: 'Patios Dublin | Natural Stone, Porcelain & Sandstone | Aside Paving',
+      description: 'Beautiful patio installation across Dublin, Kildare and Meath. Natural sandstone, porcelain, limestone and concrete patios. Free quotes.',
+      keywords: 'patios Dublin, patio installation Dublin, natural stone patios Dublin, porcelain patios Dublin, sandstone patios Ireland, garden patios Dublin'
+    },
+    '/block-paving': {
+      title: 'Block Paving Dublin | Driveways & Patios | Cobblelock Specialists | Aside Paving',
+      description: 'Expert block paving for driveways and patios across Dublin, Kildare and Meath. Herringbone, basketweave patterns. Est. 1985. Free quotes.',
+      keywords: 'block paving Dublin, cobblelock Dublin, block paving driveways Dublin, herringbone paving Dublin, tegula block paving Ireland'
+    },
+    '/garden-walls': {
+      title: 'Garden Walls Dublin | Brick, Block & Stone Walls | Aside Paving Est. 1985',
+      description: 'Quality garden wall construction across Dublin, Kildare and Meath. Brick, block, stone, retaining and capped walls. 40+ years experience. Free quotes.',
+      keywords: 'garden walls Dublin, brick walls Dublin, block walls Dublin, retaining walls Dublin, boundary walls Dublin, stone walls Ireland'
+    },
+    '/artificial-grass': {
+      title: 'Artificial Grass Dublin | Premium Turf Supply & Installation | Aside Paving',
+      description: 'Premium artificial grass supply and installation across Dublin, Kildare and Meath. Child safe, pet friendly, UV resistant. 10-year guarantee. Free quotes.',
+      keywords: 'artificial grass Dublin, fake grass Dublin, artificial lawn Dublin, artificial turf Dublin, astroturf Dublin, artificial grass installation Dublin'
+    },
+    '/locations': {
+      title: 'Paving Service Areas | Dublin, Kildare & Meath | Aside Paving',
+      description: 'Aside Paving serves 135 towns across Dublin, Kildare and Meath. Find expert driveways, patios, block paving and garden walls near you.',
+      keywords: 'paving near me, driveways near me, paving Dublin areas, paving Kildare, paving Meath, local paving contractor Ireland'
+    },
+    '/contact': {
+      title: 'Contact Aside Paving | Free Quote | Dublin, Kildare & Meath',
+      description: 'Contact Aside Paving for a free no-obligation quote. Expert driveways, patios and block paving across Dublin, Kildare and Meath.',
+      keywords: 'contact paving company Dublin, free paving quote Dublin, paving estimate Dublin'
+    },
+    '/about': {
+      title: 'About Aside Paving | Est. 1985 | 40+ Years Paving Experience',
+      description: 'Aside Paving has been serving homes across Dublin, Kildare and Meath since 1985. 40+ years of expert paving, driveways and outdoor spaces.',
+      keywords: 'about aside paving, paving company Dublin history, established paving contractor Ireland'
+    }
+  }
+
+  if (serviceMeta[pathname]) {
+    title = serviceMeta[pathname].title
+    description = serviceMeta[pathname].description
+    keywords = serviceMeta[pathname].keywords
+    canonical = `https://asidepaving.ie${pathname}`
+    schema = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Aside Paving",
+      "url": canonical,
+      "foundingDate": "1985",
+      "telephone": "ASIDE_PAVING_PHONE"
+    })
+  }
+
+  // HOMEPAGE
+  if (pathname === '/') {
+    schema = JSON.stringify([
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Aside Paving",
+        "url": "https://asidepaving.ie",
+        "foundingDate": "1985",
+        "telephone": "ASIDE_PAVING_PHONE",
+        "email": "ASIDE_PAVING_EMAIL",
+        "priceRange": "$$",
+        "areaServed": ["Dublin","Kildare","Meath"],
+        "address": { "@type": "PostalAddress", "addressCountry": "IE" },
+        "geo": { "@type": "GeoCoordinates", "latitude": 53.3498, "longitude": -6.2603 },
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "17:00" }
+        ],
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "47", "bestRating": "5" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Aside Paving",
+        "url": "https://asidepaving.ie"
+      }
+    ])
+  }
+
+  const schemaTag = schema ? `<script type="application/ld+json">${schema}</script>` : ''
+  const ogImage = 'https://asidepaving.ie/assets/opengraph.jpg'
+
+  return `
+    <title>${title}</title>
+    <meta name="description" content="${description}" />
+    <meta name="keywords" content="${keywords}" />
+    <link rel="canonical" href="${canonical}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Aside Paving" />
+    <meta property="og:title" content="${title}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aside Paving" />
+    <meta property="og:image" content="${ogImage}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IE" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${title}" />
+    <meta name="twitter:description" content="${description}" />
+    <meta name="twitter:image" content="${ogImage}" />
+    <meta name="geo.region" content="IE" />
+    <meta name="geo.placename" content="Dublin, Ireland" />
+    <meta name="format-detection" content="telephone=yes" />
+    ${schemaTag}
+  `.trim()
+}
+
+Replace ASIDE_PAVING_PHONE and ASIDE_PAVING_EMAIL with the real values from the existing codebase.
+
+
+═══════════════════════════════════════
+STEP 3 — UPDATE index.html
+═══════════════════════════════════════
+
+Find the index.html used as SSR template.
+Replace the existing <title> and any existing meta tags in <head> with just:
+
+<!--ssr-meta-->
+
+So the SSR system injects everything fresh per request.
+Keep: <meta charset="UTF-8" />, <meta name="viewport" .../>, favicon links, font links, the root div, script tags.
+Remove: any existing <title>, <meta name="description">, og tags, twitter tags.
+
+
+═══════════════════════════════════════
+STEP 4 — SITEMAP & ROBOTS
+═══════════════════════════════════════
+
+Create scripts/generate-sitemap.ts:
+
+import { writeFileSync } from 'fs'
+
+const baseUrl = 'https://asidepaving.ie'
+const services = ['driveways','patios','block-paving','garden-walls','artificial-grass']
+
+// All 135 town slugs
+const towns = [
+  // Dublin
+  'swords','malahide','howth','portmarnock','donabate','rush','lusk','skerries','balbriggan',
+  'blanchardstown','castleknock','lucan','palmerstown','clondalkin','tallaght','dundrum',
+  'blackrock','dun-laoghaire','dalkey','killiney','shankill','stillorgan','sandyford','foxrock',
+  'cabinteely','rathfarnham','templeogue','terenure','harolds-cross','ranelagh','rathgar',
+  'sandymount','clontarf','raheny','baldoyle','sutton','crumlin','walkinstown','mulhuddart',
+  'ongar','clonsilla','rathcoole','saggart','monkstown','ringsend','ballsbridge','drumcondra',
+  'glasnevin','finglas','santry','artane','coolock','beaumont','kilbarrack','ballymun','cabra',
+  'phibsborough','stoneybatter','inchicore','kilmainham','drimnagh','ballyfermot','chapelizod',
+  'adamstown','citywest','knocklyon','firhouse','ballyboden','churchtown','goatstown',
+  'mount-merrion','booterstown','donnybrook','milltown','rathmines','portobello',
+  'dolphins-barn','marino','fairview','harmonstown','killester','tyrrelstown','hartstown',
+  'belmayne','clongriffin','kinsealy','ayrfield','east-wall','smithfield','sandycove',
+  // Kildare
+  'naas','newbridge','maynooth','celbridge','leixlip','clane','kilcock','kildare-town',
+  'sallins','athy','monasterevin','rathangan','kilcullen','prosperous','kill','allenwood',
+  'ballymore-eustace','johnstown-bridge',
+  // Meath
+  'navan','ashbourne','dunshaughlin','ratoath','trim','kells','laytown','bettystown',
+  'enfield','drogheda','slane','duleek','dunboyne','clonee','stamullen','gormanston',
+  'athboy','oldcastle','nobber','ballivor'
+]
+
+const staticPages = [
+  { url: '/', priority: '1.0', changefreq: 'weekly' },
+  { url: '/driveways', priority: '0.9', changefreq: 'weekly' },
+  { url: '/patios', priority: '0.9', changefreq: 'weekly' },
+  { url: '/block-paving', priority: '0.9', changefreq: 'weekly' },
+  { url: '/garden-walls', priority: '0.9', changefreq: 'weekly' },
+  { url: '/artificial-grass', priority: '0.9', changefreq: 'weekly' },
+  { url: '/locations', priority: '0.8', changefreq: 'monthly' },
+  { url: '/contact', priority: '0.7', changefreq: 'monthly' },
+  { url: '/about', priority: '0.7', changefreq: 'monthly' },
+]
+
+let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`
+
+// Static pages
+for (const page of staticPages) {
+  xml += `  <url><loc>${baseUrl}${page.url}</loc><changefreq>${page.changefreq}</changefreq><priority>${page.priority}</priority></url>\n`
+}
+
+// Location pages
+for (const service of services) {
+  for (const town of towns) {
+    xml += `  <url><loc>${baseUrl}/${service}?location=${town}</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`
+  }
+}
+
+xml += `</urlset>`
+
+writeFileSync('public/sitemap.xml', xml)
+console.log(`Generated sitemap with ${staticPages.length + (services.length * towns.length)} URLs`)
+
+Add to package.json scripts:
+"generate:sitemap": "tsx scripts/generate-sitemap.ts"
+
+Run it now:
+pnpm generate:sitemap
+
+Create public/robots.txt:
+User-agent: *
+Allow: /
+Disallow: /api/
+Sitemap: https://asidepaving.ie/sitemap.xml
+
+
+═══════════════════════════════════════
+STEP 5 — VERIFY
+═══════════════════════════════════════
+
+curl -s http://localhost:3000/ | grep -E "<title>|description|canonical|robots|ld\+json" | head -20
+curl -s "http://localhost:3000/driveways?location=swords" | grep -E "<title>|canonical|ld\+json" | head -10
+curl -s http://localhost:3000/sitemap.xml | grep -c "<url>"
+curl -s http://localhost:3000/robots.txt
+
+Expected:
+- Title: "Aside Paving | Driveways..." (not TJ's)
+- Canonical present on every page
+- robots: index, follow
+- 2+ ld+json blocks on homepage
+- 684 <url> entries in sitemap
+- robots.txt with sitemap URL

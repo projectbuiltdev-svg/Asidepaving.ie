@@ -50,10 +50,18 @@ React SSR website cloned from asidepaving.ie. Express 5 server with Vite SSR.
 - `src/pages/LocationService.tsx` — 9-section location+service page component
 - `src/pages/Locations.tsx` — county-grouped index page
 - `src/pages/ArtificialGrassRouter.tsx` — handles `/artificial-grass` route conflict (original page vs pSEO)
-- `public/sitemap.xml` — 651 URLs total
+- `public/sitemap.xml` — 654 URLs total
 
 ### SEO Features
-- FAQ schema markup (`FAQPage`) on every location page
-- LocalBusiness schema on every location page
+- **SSR meta injection**: `server.ts` replaces `<!--ssr-*-->` placeholders in `index.html` per page (title, description, keywords, canonical, OG, Twitter)
+- **Schema markup** (via `src/components/SchemaMarkup.tsx`): Organization, LocalBusiness, Service, BreadcrumbList, FAQPage, AggregateRating, WebSite — rendered as `<script type="application/ld+json">` per page
+- **Breadcrumbs** (`src/components/Breadcrumbs.tsx`): Semantic `nav[aria-label="Breadcrumb"]` on all service and location pages
+- **Internal linking** (`src/components/InternalLinks.tsx`): ServiceLinksGrid, NearbyAreasLinks, CountyAreaLinks, RelatedServicesLinks — context-aware cross-linking on location and service pages
+- **Homepage popular locations section**: Links to top services and areas
+- **301 redirects** in `server.ts`: `/driveway` → `/driveways`, `/cobblelock` → `/block-paving`, etc.
+- **HTTP headers**: `X-Robots-Tag: index, follow`, production `Cache-Control: public, max-age=3600`
+- **Technical SEO in `index.html`**: hreflang (en-ie, en), theme-color, format-detection, OG image dimensions, geo tags
+- **404 page**: SEO-friendly with service links and `noindex` meta
+- **robots.txt** and **sitemap.xml** at `/public/`
+- FAQ schema on every location page, LocalBusiness schema on every page
 - Google Maps embed per location
-- Cross-linking: nearby areas, related services, other services in same location

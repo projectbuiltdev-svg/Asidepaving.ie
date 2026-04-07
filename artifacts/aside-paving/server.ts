@@ -148,8 +148,35 @@ function injectMeta(template: string, url: string): string {
   return html;
 }
 
+const redirects: Record<string, string> = {
+  '/driveway': '/driveways',
+  '/patio': '/patios',
+  '/garden-wall': '/garden-walls',
+  '/artificial-lawn': '/artificial-grass',
+  '/fake-grass': '/artificial-grass',
+  '/astroturf': '/artificial-grass',
+  '/cobblelock': '/block-paving',
+  '/tarmac': '/driveways',
+};
+
 async function createApp() {
   const app = express();
+
+  app.use((req, res, next) => {
+    const target = redirects[req.path];
+    if (target) {
+      return res.redirect(301, target);
+    }
+    next();
+  });
+
+  app.use((_, res, next) => {
+    res.set("X-Robots-Tag", "index, follow");
+    if (isProduction) {
+      res.set("Cache-Control", "public, max-age=3600");
+    }
+    next();
+  });
 
   if (!isProduction) {
     const { createServer: createViteServer } = await import("vite");

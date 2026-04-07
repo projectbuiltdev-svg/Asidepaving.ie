@@ -2,6 +2,9 @@ import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
+import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { Leaf, Sun, Shield, Droplets } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -32,6 +35,15 @@ export default function ArtificialGrass() {
 
   return (
     <Layout>
+      <SchemaScript data={getLocalBusinessSchema()} />
+      <SchemaScript data={getServiceSchema("Artificial Grass", "artificial-grass", "Premium artificial grass supply and installation across Dublin, Kildare and Meath. Child safe, pet friendly, UV resistant.")} />
+      <SchemaScript data={getBreadcrumbSchema([
+        { name: "Home", url: "https://asidepaving.ie" },
+        { name: "Artificial Grass", url: "https://asidepaving.ie/artificial-grass" }
+      ])} />
+
+      <Breadcrumbs items={[{ label: "Artificial Grass" }]} />
+
       <section className="relative bg-black text-white min-h-[50vh] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -113,6 +125,13 @@ export default function ArtificialGrass() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-8 bg-white">
+        <div className="container mx-auto max-w-6xl px-4">
+          <RelatedServicesLinks serviceSlug="artificial-grass" />
+          <CountyAreaLinks serviceSlug="artificial-grass" />
         </div>
       </section>
 

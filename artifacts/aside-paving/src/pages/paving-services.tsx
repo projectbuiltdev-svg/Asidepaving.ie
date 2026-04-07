@@ -2,6 +2,9 @@ import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
+import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { IMAGES } from "@/lib/constants";
 import { CheckCircle2 } from "lucide-react";
 
@@ -15,6 +18,15 @@ export default function PavingServices() {
 
   return (
     <Layout>
+      <SchemaScript data={getLocalBusinessSchema()} />
+      <SchemaScript data={getServiceSchema("Paving Services", "paving-services", "Professional paving services across Dublin, Kildare and Meath. Block paving, cobblelock, tarmac and more. Est. 1985.")} />
+      <SchemaScript data={getBreadcrumbSchema([
+        { name: "Home", url: "https://asidepaving.ie" },
+        { name: "Paving Services", url: "https://asidepaving.ie/paving-services" }
+      ])} />
+
+      <Breadcrumbs items={[{ label: "Paving Services" }]} />
+
       <section className="relative bg-black text-white min-h-[50vh] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -83,6 +95,13 @@ export default function PavingServices() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-8 bg-white">
+        <div className="container mx-auto max-w-6xl px-4">
+          <RelatedServicesLinks serviceSlug="block-paving" />
+          <CountyAreaLinks serviceSlug="block-paving" />
         </div>
       </section>
 

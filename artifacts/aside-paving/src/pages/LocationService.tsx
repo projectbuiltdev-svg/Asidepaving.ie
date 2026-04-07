@@ -4,11 +4,14 @@ import { useSearch } from "wouter";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ServiceLinksGrid, CountyAreaLinks, NearbyAreasLinks } from "@/components/InternalLinks";
+import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema, getFAQSchema } from "@/components/SchemaMarkup";
 import { CONTACT_INFO, IMAGES } from "@/lib/constants";
 import { locationData } from "@/data/locationData";
 import { serviceData } from "@/data/serviceData";
 import { getDescriptionIndex, formatLocation, generateLocationFAQs } from "@/utils/locationUtils";
-import { Phone, MessageSquare, CheckCircle2, ChevronDown, ChevronRight, MapPin, ExternalLink, Shield, Clock, Star, Award } from "lucide-react";
+import { Phone, MessageSquare, CheckCircle2, ChevronDown, MapPin, ExternalLink, Shield, Clock, Star, Award } from "lucide-react";
 
 function FAQAccordion({ faqs }: { faqs: { question: string; answer: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -58,45 +61,35 @@ export default function LocationService({ service }: { service: string }) {
   const faqs = generateLocationFAQs(svc.faqs, locationName, svc.title, svc.relatedServices);
   const otherServices = Object.values(serviceData).filter(s => s.slug !== service);
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-    }))
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Aside Paving",
+  const localBizSchema = getLocalBusinessSchema({
     "description": `${svc.title} in ${locationName}`,
     "url": `https://asidepaving.ie/${svc.slug}?location=${locationSlug}`,
     "telephone": CONTACT_INFO.office,
     "address": { "@type": "PostalAddress", "addressLocality": locationName, "addressRegion": `Co. ${locData.county}`, "addressCountry": "IE" },
     "geo": { "@type": "GeoCoordinates", "latitude": locData.lat, "longitude": locData.lng },
     "areaServed": `${locationName}, Co. ${locData.county}`
-  };
+  });
+
+  const serviceSchema = getServiceSchema(svc.title, svc.slug, `${svc.title} in ${locationName}, Co. ${locData.county}. Est. 1985.`);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: "Home", url: "https://asidepaving.ie" },
+    { name: svc.title, url: `https://asidepaving.ie/${svc.slug}` },
+    { name: locationName, url: `https://asidepaving.ie/${svc.slug}?location=${locationSlug}` }
+  ]);
+  const faqSchema = getFAQSchema(faqs);
 
   return (
     <Layout>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <SchemaScript data={localBizSchema} />
+      <SchemaScript data={serviceSchema} />
+      <SchemaScript data={breadcrumbSchema} />
+      <SchemaScript data={faqSchema} />
 
-      {/* 1. BREADCRUMBS */}
-      <div className="bg-muted/30 border-b border-border">
-        <div className="container mx-auto max-w-6xl px-4 py-3 text-sm text-muted-foreground flex items-center gap-2 flex-wrap">
-          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span>{svc.title}</span>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-foreground font-medium">{locationName}</span>
-        </div>
-      </div>
+      <Breadcrumbs items={[
+        { label: svc.title, href: `/${svc.slug}` },
+        { label: locationName }
+      ]} />
 
-      {/* 2. HERO SECTION */}
       <section className="relative bg-black text-white min-h-[50vh] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -125,11 +118,15 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 3. MAIN CONTENT — Two Column */}
+      <section className="py-6 bg-white border-b border-border">
+        <div className="container mx-auto max-w-6xl px-4">
+          <ServiceLinksGrid serviceSlug={service} locationSlug={locationSlug} />
+        </div>
+      </section>
+
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="flex flex-col lg:flex-row gap-12">
-            {/* LEFT COLUMN */}
             <div className="lg:w-2/3">
               <p className="text-lg text-muted-foreground leading-relaxed mb-10">
                 {svc.descriptions[idx]}
@@ -165,7 +162,6 @@ export default function LocationService({ service }: { service: string }) {
               </div>
             </div>
 
-            {/* RIGHT COLUMN — Sticky Sidebar */}
             <div className="lg:w-1/3">
               <div className="sticky top-28 space-y-6">
                 <div className="bg-muted/30 rounded-xl border border-border p-6 space-y-4">
@@ -208,7 +204,6 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 4. CTA BAND */}
       <section className="bg-foreground text-white py-16">
         <div className="container mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8">Transform Your {locationName} Home Today</h2>
@@ -224,7 +219,6 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 5. MAP + ATTRACTIONS */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="flex flex-col lg:flex-row gap-8">
@@ -263,7 +257,6 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 6. FAQ ACCORDION */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-4xl px-4">
           <h2 className="text-3xl font-serif font-bold text-center mb-4">Frequently Asked Questions</h2>
@@ -272,7 +265,12 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 7. BRANDING SECTION */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto max-w-6xl px-4">
+          <CountyAreaLinks serviceSlug={service} />
+        </div>
+      </section>
+
       <section className="relative bg-black text-white py-16">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
@@ -293,7 +291,6 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 8. OTHER SERVICES IN LOCATION */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-2xl font-serif font-bold text-center mb-8">Other Services in {locationName}</h2>
@@ -308,19 +305,10 @@ export default function LocationService({ service }: { service: string }) {
         </div>
       </section>
 
-      {/* 9. NEARBY AREAS */}
       <section className="py-12 bg-white border-t border-border">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-xl font-serif font-bold mb-6">{svc.title} in Nearby Areas</h2>
-          <div className="flex flex-wrap gap-2">
-            {locData.nearby
-              .filter(n => locationData[n])
-              .map((n, i) => (
-                <Link key={i} href={`/${svc.slug}?location=${n}`} className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-muted/50 border border-border text-sm font-medium hover:bg-primary/10 hover:border-primary hover:text-primary transition-colors">
-                  {svc.title} in {formatLocation(n)}
-                </Link>
-              ))}
-          </div>
+          <NearbyAreasLinks serviceSlug={svc.slug} nearbyAreas={locData.nearby.filter(n => locationData[n])} />
         </div>
       </section>
 

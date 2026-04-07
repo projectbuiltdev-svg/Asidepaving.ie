@@ -2,6 +2,8 @@ import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { internalLinkSets } from "@/components/InternalLinks";
+import { SchemaScript, organisationSchema, getLocalBusinessSchema, aggregateRatingSchema, websiteSchema } from "@/components/SchemaMarkup";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -38,7 +40,11 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Hero Section */}
+      <SchemaScript data={organisationSchema} />
+      <SchemaScript data={getLocalBusinessSchema()} />
+      <SchemaScript data={aggregateRatingSchema} />
+      <SchemaScript data={websiteSchema} />
+
       <section className="relative bg-black text-white min-h-[80vh] flex items-center">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -77,7 +83,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Grid */}
       <section id="services" className="py-20 bg-muted/30">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
@@ -117,7 +122,6 @@ export default function Home() {
 
       <ContactForm />
 
-      {/* Info Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="bg-primary/5 rounded-2xl p-8 md:p-12 border border-primary/10 flex flex-col md:flex-row items-center gap-8">
@@ -132,6 +136,27 @@ export default function Home() {
                 Our service catchment areas include: <span className="font-bold text-foreground">{CATCHMENT_AREAS}</span>
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-center mb-8">
+            Paving Services Across Dublin, Kildare & Meath
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {internalLinkSets.homepage.map(link => (
+              <a key={link.href} href={link.href}
+                className="text-sm text-center py-3 px-4 rounded-lg border border-border bg-white hover:border-primary hover:text-primary transition-colors">
+                {link.text}
+              </a>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <Link href="/locations" className="text-primary font-medium hover:underline">
+              View all 135 service areas across Dublin, Kildare & Meath →
+            </Link>
           </div>
         </div>
       </section>

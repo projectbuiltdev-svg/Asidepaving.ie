@@ -2,12 +2,24 @@ import { Layout } from "@/components/layout/Layout";
 import { FreeQuoteCTA } from "@/components/shared/FreeQuoteCTA";
 import { TestimonialsSection } from "@/components/shared/TestimonialsSection";
 import { ContactForm } from "@/components/shared/ContactForm";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLinks";
+import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
 import { MapPin, ArrowRight } from "lucide-react";
 
 export default function PatiosDriveways() {
   return (
     <Layout>
+      <SchemaScript data={getLocalBusinessSchema()} />
+      <SchemaScript data={getServiceSchema("Patios & Driveways", "patios-driveways", "Professional patio and driveway contractors with decades of experience. Natural stone, porcelain, cobblelock and more.")} />
+      <SchemaScript data={getBreadcrumbSchema([
+        { name: "Home", url: "https://asidepaving.ie" },
+        { name: "Patios & Driveways", url: "https://asidepaving.ie/patios-driveways" }
+      ])} />
+
+      <Breadcrumbs items={[{ label: "Patios & Driveways" }]} />
+
       <section className="relative bg-black text-white min-h-[50vh] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -87,6 +99,13 @@ export default function PatiosDriveways() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-8 bg-white">
+        <div className="container mx-auto max-w-6xl px-4">
+          <RelatedServicesLinks serviceSlug="patios" />
+          <CountyAreaLinks serviceSlug="patios" />
         </div>
       </section>
 
