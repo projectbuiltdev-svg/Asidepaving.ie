@@ -225,7 +225,7 @@ export default function LocationService({ service }: { service: string }) {
             <div className="lg:w-1/2">
               <h2 className="text-2xl font-serif font-bold mb-6">{locationName} Service Area</h2>
               <iframe
-                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=${locData.lat},${locData.lng}&zoom=13`}
+                src={`https://www.google.com/maps?q=${locData.lat},${locData.lng}&z=13&output=embed`}
                 width="100%"
                 height="350"
                 loading="lazy"
