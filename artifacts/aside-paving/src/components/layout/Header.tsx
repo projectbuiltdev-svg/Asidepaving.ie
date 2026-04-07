@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/block-paving", label: "Block Paving" },
   { href: "/garden-walls", label: "Garden Walls" },
   { href: "/artificial-grass", label: "Artificial Grass" },
+  { href: "/blog", label: "Blog" },
 ];
 
 const counties = [
