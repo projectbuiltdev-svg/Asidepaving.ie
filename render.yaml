@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: aside-paving
+    runtime: node
+    rootDir: artifacts/aside-paving
+    buildCommand: pnpm build
+    startCommand: pnpm serve
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
