@@ -21,8 +21,8 @@ export const CONTACT_INFO = {
   office: "045395149",
   tj: "0870381036",
   tim: "0879134059",
-  whatsapp: "+353876301856",
-  whatsappLink: "https://api.whatsapp.com/send?phone=+353876301856",
+  whatsapp: "+353870381036",
+  whatsappLink: "https://api.whatsapp.com/send?phone=+353870381036",
   email: "murphypaving1985@gmail.com",
   address: "Co. Kildare, Ireland"
 };
