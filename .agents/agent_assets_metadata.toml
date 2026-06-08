@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "wxKVFuvJ-7Acnc-gSIVc5"
@@ -108,3 +107,9 @@ id = "RXBPd1AIRL_vnoVXP1mZO"
 uri = "file://artifacts/aside-paving/src/assets/gallery-grass-2.png"
 type = "image"
 title = "Gallery grass 2"
+
+[[outputs]]
+id = "_Ux9WLK_coNDrkrXoRSSL"
+uri = "file://exports/LocationSEOStarter.txt"
+type = "text"
+title = "Location pSEO Starter — copy/paste ready"
