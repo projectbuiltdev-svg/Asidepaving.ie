@@ -328,11 +328,11 @@ export function Footer() {
             <p>
               Powered by{" "}
               <a
-                href="https://projectbuilt.dev"
+                href="https://websites4tradesmen.ie"
                 target="_blank" rel="noopener noreferrer"
                 className="hover:underline" style={{ color: 'rgb(180, 140, 50)' }}
               >
-                projectbuilt.dev
+                websites4tradesmen.ie
               </a>
             </p>
           </div>
