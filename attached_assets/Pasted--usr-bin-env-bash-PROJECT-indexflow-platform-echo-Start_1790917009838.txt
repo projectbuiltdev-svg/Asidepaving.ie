@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+PROJECT="indexflow-platform"
+echo "=== Starting Diagnostic Audit for Project: $PROJECT ==="
+
+# -------------------------------------------------------------
+# 0. Pre-Flight Authentication & Environment Checks
+# -------------------------------------------------------------
+ACTIVE_ACCOUNT=$(gcloud auth list --filter=status:ACTIVE --format="value(account)" 2>/dev/null)
+if [ -z "$ACTIVE_ACCOUNT" ]; then
+  echo "❌ ERROR: No active Google Cloud account found in this shell."
+  echo "👉 Run 'gcloud auth login' and try again."
+  exit 1
+fi
+echo "✓ Authenticated as: $ACTIVE_ACCOUNT"
+
+if ! command -v kubectl &>/dev/null; then
+  echo "⚠️ WARNING: 'kubectl' is not installed in this environment."
+  echo "   GKE cluster existence will be checked, but cluster-internal PVCs cannot be inspected."
+  CAN_RUN_KUBECTL=false
+else
+  CAN_RUN_KUBECTL=true
+fi
+
+# -------------------------------------------------------------
+# 1. Check for Active Filestore Instances (Live Billing Risk)
+# -------------------------------------------------------------
+echo ""
+echo "--> Checking for existing Filestore instances..."
+FILESTORE_OUTPUT=$(gcloud filestore instances list --project="$PROJECT" --format="value(name)" 2>&1)
+FILESTORE_STATUS=$?
+
+if [ $FILESTORE_STATUS -ne 0 ]; then
+  echo "❌ Failed to query Filestore API (Check permissions or API enablement):"
+  echo "$FILESTORE_OUTPUT"
+elif [ -z "$FILESTORE_OUTPUT" ]; then
+  echo "✅ 0 active Filestore instances found in $PROJECT."
+else
+  echo "⚠️ ACTIVE BILLABLE FILESTORE INSTANCES FOUND:"
+  echo "$FILESTORE_OUTPUT"
+fi
+
+# -------------------------------------------------------------
+# 2. Check for GKE Clusters
+# -------------------------------------------------------------
+echo ""
+echo "--> Checking for GKE clusters..."
+CLUSTER_DATA=$(gcloud container clusters list --project="$PROJECT" --format="value(name,location)" 2>&1)
+CLUSTER_STATUS=$?
+
+if [ $CLUSTER_STATUS -ne 0 ]; then
+  echo "❌ Failed to query GKE clusters:"
+  echo "$CLUSTER_DATA"
+  exit 1
+elif [ -z "$CLUSTER_DATA" ]; then
+  echo "✅ 0 GKE clusters found in project $PROJECT."
+  echo "🎉 Verdict: No clusters exist to schedule workloads. The Filestore auto-enablement poses ZERO cost risk."
+  exit 0
+fi
+
+echo "⚠️ Discovered GKE cluster(s):"
+echo "$CLUSTER_DATA"
+
+# -------------------------------------------------------------
+# 3. Inspect Discovered Clusters for RWX PVCs
+# -------------------------------------------------------------
+if [ "$CAN_RUN_KUBECTL" = false ]; then
+  echo ""
+  echo "⚠️ Skipping in-cluster PVC checks because 'kubectl' is missing."
+  echo "   Install kubectl or run this script from Google Cloud Shell."
+  exit 0
+fi
+
+echo ""
+echo "--> Inspecting clusters for ReadWriteMany (RWX) claims..."
+
+while read -r CLUSTER_NAME CLUSTER_LOC; do
+  [ -z "$CLUSTER_NAME" ] && continue
+  echo ""
+  echo "--- Cluster: $CLUSTER_NAME ($CLUSTER_LOC) ---"
+
+  # Fetch credentials to local context
+  gcloud container clusters get-credentials "$CLUSTER_NAME" --location="$CLUSTER_LOC" --project="$PROJECT" >/dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    echo "❌ Failed to get credentials for cluster $CLUSTER_NAME"
+    continue
+  fi
+
+  # Query all PVCs requesting ReadWriteMany
+  RWX_PVCS=$(kubectl get pvc -A -o jsonpath='{range .items[?(@.spec.accessModes[0]=="ReadWriteMany")]}{.metadata.namespace}{"\t"}{.metadata.name}{"\t"}{.spec.storageClassName}{"\t"}{.status.phase}{"\n"}{end}')
+
+  if [ -z "$RWX_PVCS" ]; then
+    echo "✅ No ReadWriteMany (RWX) PVCs found in $CLUSTER_NAME."
+  else
+    echo "🚨 WARNING: Found ReadWriteMany PVC(s) in $CLUSTER_NAME:"
+    printf "NAMESPACE\tNAME\tSTORAGECLASS\tPHASE\n"
+    echo "$RWX_PVCS"
+    echo "👉 If 'STORAGECLASS' is empty or '<none>', GKE will auto-provision Filestore after the update!"
+  fi
+
+done <<< "$CLUSTER_DATA"
+
+echo ""
+echo "=== Audit Finished ==="
