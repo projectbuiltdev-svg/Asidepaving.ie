@@ -91,7 +91,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">Our Services</h2>
             <div className="w-24 h-1 bg-primary mx-auto mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-none mx-auto md:whitespace-nowrap">
               Additional services include: Walls & Pillars, Artificial Grass landscaping, patio & decking
             </p>
           </div>
