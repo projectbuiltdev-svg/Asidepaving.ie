@@ -17,7 +17,7 @@ export default function ServiceRouter({ service }: { service: string }) {
   const hasLocation = params.has("location") && params.get("location") !== "";
 
   if (hasLocation) {
-    return <LocationService service={service} />;
+    return <LocationService service={service} location={params.get("location") || ""} />;
   }
 
   const LandingPage = serviceLandingPages[service];
@@ -25,5 +25,5 @@ export default function ServiceRouter({ service }: { service: string }) {
     return <LandingPage />;
   }
 
-  return <LocationService service={service} />;
+  return <LocationService service={service} location="" />;
 }

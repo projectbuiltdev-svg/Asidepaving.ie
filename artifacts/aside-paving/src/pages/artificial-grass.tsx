@@ -7,7 +7,7 @@ import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLink
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
 import { serviceFAQs } from "@/data/serviceFAQs";
-import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
+import { IMAGES, GALLERY_ALTS, CATCHMENT_AREAS } from "@/lib/constants";
 import { Leaf, Sun, Shield, Droplets } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -121,7 +121,7 @@ export default function ArtificialGrass() {
               <div key={idx} className="overflow-hidden rounded-lg shadow-sm aspect-video">
                 <img 
                   src={img} 
-                  alt={`Artificial grass example ${idx + 1}`} 
+                  alt={GALLERY_ALTS[idx + 6]} 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>

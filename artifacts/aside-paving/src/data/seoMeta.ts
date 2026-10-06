@@ -1,6 +1,8 @@
+import { SERVICE_AREA_COUNT } from "./locationData";
+
 export const pageMeta: Record<string, { title: string; description: string; keywords: string }> = {
   "/": {
-    title: "Aside Paving | Driveways, Patios & Block Paving | Dublin, Kildare & Meath | Est. 1985",
+    title: "Aside Paving | Driveways, Patios & Block Paving",
     description: "Expert paving services across Dublin, Kildare and Meath since 1985. Driveways, patios, block paving, garden walls and artificial grass. Free quotes. Call Aside Paving today.",
     keywords: "paving Dublin, driveways Dublin, block paving Dublin, patios Dublin, paving contractor Dublin, driveway installation Dublin, cobblelock Dublin, paving Kildare, paving Meath, driveway company Ireland"
   },
@@ -31,7 +33,7 @@ export const pageMeta: Record<string, { title: string; description: string; keyw
   },
   "/locations": {
     title: "Paving Services Areas | Dublin, Kildare & Meath | Aside Paving",
-    description: "Aside Paving serves 129 towns across Dublin, Kildare and Meath. Find expert driveways, patios, block paving, garden walls and artificial grass near you.",
+    description: `Aside Paving serves ${SERVICE_AREA_COUNT} towns across Dublin, Kildare and Meath. Find expert driveways, patios, block paving, garden walls and artificial grass near you.`,
     keywords: "paving near me, driveways near me, paving Dublin areas, paving Kildare areas, paving Meath areas, local paving contractor, paving company near me Ireland"
   },
   "/contact": {

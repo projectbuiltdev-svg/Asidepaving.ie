@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { locationData } from "../src/data/locationData.js";
+import { blogPosts } from "../src/data/blogPosts.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -35,11 +36,16 @@ for (const page of corePages) {
 for (const service of serviceSlugs) {
   for (const location of locationSlugs) {
     xml += `  <url>\n`;
-    xml += `    <loc>https://asidepaving.ie/${service}?location=${location}</loc>\n`;
+    xml += `    <loc>https://asidepaving.ie/${service}/${location}</loc>\n`;
     xml += `    <changefreq>monthly</changefreq>\n`;
     xml += `    <priority>0.7</priority>\n`;
     xml += `  </url>\n`;
   }
+}
+
+xml += `  <url>\n    <loc>https://asidepaving.ie/blog</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
+for (const post of blogPosts) {
+  xml += `  <url>\n    <loc>https://asidepaving.ie/blog/${post.slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
 }
 
 xml += `</urlset>\n`;

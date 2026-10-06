@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 
 export const internalLinkSets = {
   homepage: [
@@ -7,12 +8,12 @@ export const internalLinkSets = {
     { text: "Block Paving Dublin", href: "/block-paving" },
     { text: "Garden Walls Dublin", href: "/garden-walls" },
     { text: "Artificial Grass Dublin", href: "/artificial-grass" },
-    { text: "Paving in Swords", href: "/driveways?location=swords" },
-    { text: "Paving in Lucan", href: "/driveways?location=lucan" },
-    { text: "Paving in Naas", href: "/driveways?location=naas" },
-    { text: "Paving in Navan", href: "/driveways?location=navan" },
-    { text: "Paving in Dundrum", href: "/driveways?location=dundrum" },
-    { text: "Paving in Malahide", href: "/driveways?location=malahide" },
+    { text: "Paving in Swords", href: "/driveways/swords" },
+    { text: "Paving in Lucan", href: "/driveways/lucan" },
+    { text: "Paving in Naas", href: "/driveways/naas" },
+    { text: "Paving in Navan", href: "/driveways/navan" },
+    { text: "Paving in Dundrum", href: "/driveways/dundrum" },
+    { text: "Paving in Malahide", href: "/driveways/malahide" },
   ],
 
   serviceToService: {
@@ -80,7 +81,7 @@ export function ServiceLinksGrid({ serviceSlug, locationSlug }: { serviceSlug: s
       {services.filter(s => s !== serviceSlug).map(s => (
         <a
           key={s}
-          href={`/${s}?location=${locationSlug}`}
+          href={`/${s}/${locationSlug}`}
           className="text-sm text-center py-2 px-3 rounded border border-gray-200 hover:border-primary hover:text-primary transition-colors"
         >
           {serviceNames[s]} in {formatAreaName(locationSlug)}
@@ -96,7 +97,7 @@ export function NearbyAreasLinks({ serviceSlug, nearbyAreas }: { serviceSlug: st
       {nearbyAreas.map(area => (
         <a
           key={area}
-          href={`/${serviceSlug}?location=${area}`}
+          href={`/${serviceSlug}/${area}`}
           className="text-xs px-3 py-1.5 rounded-full bg-gray-100 hover:bg-primary hover:text-white transition-colors"
         >
           {formatAreaName(area)}
@@ -117,7 +118,7 @@ export function CountyAreaLinks({ serviceSlug }: { serviceSlug: string }) {
           <h4 className="font-medium text-sm text-gray-600 mb-2">County Dublin</h4>
           <div className="flex flex-wrap gap-1">
             {internalLinkSets.topDublinAreas.map(area => (
-              <a key={area} href={`/${serviceSlug}?location=${area}`}
+              <a key={area} href={`/${serviceSlug}/${area}`}
                 className="text-xs text-primary hover:underline px-1">
                 {formatAreaName(area)}
               </a>
@@ -128,7 +129,7 @@ export function CountyAreaLinks({ serviceSlug }: { serviceSlug: string }) {
           <h4 className="font-medium text-sm text-gray-600 mb-2">County Kildare</h4>
           <div className="flex flex-wrap gap-1">
             {internalLinkSets.topKildareAreas.map(area => (
-              <a key={area} href={`/${serviceSlug}?location=${area}`}
+              <a key={area} href={`/${serviceSlug}/${area}`}
                 className="text-xs text-primary hover:underline px-1">
                 {formatAreaName(area)}
               </a>
@@ -139,7 +140,7 @@ export function CountyAreaLinks({ serviceSlug }: { serviceSlug: string }) {
           <h4 className="font-medium text-sm text-gray-600 mb-2">County Meath</h4>
           <div className="flex flex-wrap gap-1">
             {internalLinkSets.topMeathAreas.map(area => (
-              <a key={area} href={`/${serviceSlug}?location=${area}`}
+              <a key={area} href={`/${serviceSlug}/${area}`}
                 className="text-xs text-primary hover:underline px-1">
                 {formatAreaName(area)}
               </a>
@@ -148,7 +149,7 @@ export function CountyAreaLinks({ serviceSlug }: { serviceSlug: string }) {
         </div>
       </div>
       <Link href="/locations" className="inline-block mt-4 text-sm text-primary font-medium hover:underline">
-        View all 135 service areas →
+        View all {SERVICE_AREA_COUNT} service areas →
       </Link>
     </div>
   );

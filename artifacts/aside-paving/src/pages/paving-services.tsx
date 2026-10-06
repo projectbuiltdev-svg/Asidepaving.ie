@@ -7,7 +7,7 @@ import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLink
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
 import { serviceFAQs } from "@/data/serviceFAQs";
-import { IMAGES } from "@/lib/constants";
+import { IMAGES, GALLERY_ALTS } from "@/lib/constants";
 import { CheckCircle2 } from "lucide-react";
 
 export default function PavingServices() {
@@ -88,7 +88,7 @@ export default function PavingServices() {
               <div key={idx} className="group overflow-hidden rounded-lg shadow-md aspect-square relative">
                 <img 
                   src={img} 
-                  alt={`Paving work example ${idx + 1}`} 
+                  alt={GALLERY_ALTS[idx]} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">

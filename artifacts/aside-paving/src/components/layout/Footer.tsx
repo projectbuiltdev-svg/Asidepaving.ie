@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Phone, Mail, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { SiFacebook, SiInstagram, SiWhatsapp, SiGoogle } from "react-icons/si";
 import { CONTACT_INFO } from "@/lib/constants";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 import logoImg from "@assets/logo.png";
 
 const socialLinks = [
@@ -137,7 +138,7 @@ export function Footer() {
               ))}
             </ul>
             <Link href="/locations" className="inline-block mt-4 text-green-400 hover:text-green-300 text-sm font-medium">
-              View All 129 Locations →
+              View All {SERVICE_AREA_COUNT} Locations →
             </Link>
           </div>
 
@@ -147,7 +148,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <a href={`tel:${CONTACT_INFO.office}`} className="text-sm hover:text-green-400 transition-colors block py-1">
+                  <a href={`tel:${CONTACT_INFO.officeTel}`} className="text-sm hover:text-green-400 transition-colors block py-1">
                     {CONTACT_INFO.office}
                   </a>
                   <a
@@ -170,6 +171,7 @@ export function Footer() {
                 <MapPin className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                 <div className="text-sm text-gray-400">
                   <span className="block">{CONTACT_INFO.address}</span>
+                  <span className="block text-gray-400 mt-1">{CONTACT_INFO.hoursLabel}</span>
                   <span className="block text-gray-400 mt-1">Serving Dublin, Kildare & Meath</span>
                 </div>
               </li>
@@ -227,7 +229,7 @@ export function Footer() {
                           {services.map((service) => (
                             <Link
                               key={`${service.slug}-${slugify(town)}`}
-                              href={`/${service.slug}?location=${slugify(town)}`}
+                              href={`/${service.slug}/${slugify(town)}`}
                               className="text-xs text-gray-400 hover:text-green-400 transition-colors bg-gray-800 px-2 py-1 rounded"
                             >
                               {service.label}
@@ -246,7 +248,7 @@ export function Footer() {
                         <span className="text-amber-400 text-sm">{town}: </span>
                         {services.map((service, idx) => (
                           <span key={`noscript-${service.slug}-${slugify(town)}`}>
-                            <a href={`/${service.slug}?location=${slugify(town)}`} className="text-gray-400 text-xs hover:text-green-400">
+                            <a href={`/${service.slug}/${slugify(town)}`} className="text-gray-400 text-xs hover:text-green-400">
                               {service.label}
                             </a>
                             {idx < services.length - 1 && <span className="text-gray-600"> | </span>}
@@ -267,7 +269,7 @@ export function Footer() {
                 "Navan","Tallaght","Blackrock","Maynooth","Sandyford","Ashbourne"].map((town) => (
                 <Link
                   key={`popular-${slugify(town)}`}
-                  href={`/driveways?location=${slugify(town)}`}
+                  href={`/driveways/${slugify(town)}`}
                   className="text-sm text-green-400 hover:text-green-300 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
                 >
                   {town}
@@ -310,7 +312,7 @@ export function Footer() {
               ].map((item) => (
                 <Link
                   key={`seo-${item.slug}-${item.town}`}
-                  href={`/${item.slug}?location=${item.town}`}
+                  href={`/${item.slug}/${item.town}`}
                   className="text-xs text-white hover:text-green-400 transition-colors text-center py-2 px-1 bg-gray-800/50 rounded hover:bg-gray-800"
                 >
                   {item.label}

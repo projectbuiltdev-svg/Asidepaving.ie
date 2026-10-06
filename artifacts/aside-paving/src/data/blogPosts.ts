@@ -1,3 +1,5 @@
+import { guidePosts2026 } from "./blogGuides2026";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -7,6 +9,7 @@ export interface BlogPost {
   category: string;
   readTime: string;
   publishDate: string;
+  dateModified?: string;
   excerpt: string;
   thumbnail: string;
   thumbnailAlt: string;
@@ -14,19 +17,20 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  ...guidePosts2026,
   {
     slug: "how-much-does-a-driveway-cost-ireland",
     thumbnail: "/images/blog/driveway-cost.webp",
     thumbnailAlt: "Block paving driveway installation cost guide Ireland",
-    title: "How Much Does a New Driveway Cost in Ireland? (2025 Guide)",
-    metaTitle: "Driveway Cost Ireland 2025 | Block Paving, Tarmac & Cobblelock Prices",
-    metaDescription: "How much does a new driveway cost in Ireland in 2025? Complete price guide for block paving, cobblelock, tarmac and resin bound driveways. Get accurate estimates.",
+    title: "How Much Does a New Driveway Cost in Ireland? (2026 Guide)",
+    metaTitle: "Driveway Cost Ireland 2026 | Block Paving, Tarmac & Cobblelock Prices",
+    metaDescription: "How much does a new driveway cost in Ireland in 2026? Complete price guide for block paving, cobblelock, tarmac and resin bound driveways. Get accurate estimates.",
     keywords: "driveway cost Ireland, how much does a driveway cost Ireland, block paving cost Ireland, cobblelock driveway cost, tarmac driveway price Ireland",
     category: "Driveways",
     readTime: "5 min read",
     publishDate: "2025-03-15",
-    excerpt: "Planning a new driveway but not sure what it will cost? We break down the price of every driveway type in Ireland for 2025.",
-    content: `## Average Driveway Costs in Ireland (2025)
+    excerpt: "Planning a new driveway but not sure what it will cost? We break down the price of every driveway type in Ireland for 2026.",
+    content: `## Average Driveway Costs in Ireland (2026)
 
 Installing a new driveway is one of the most impactful home improvements you can make. Here are the average costs in Ireland:
 
@@ -139,8 +143,8 @@ Need your driveway professionally cleaned or resealed? [Contact Aside Paving](/c
     slug: "artificial-grass-pros-cons-ireland",
     thumbnail: "/images/blog/artificial-grass.webp",
     thumbnailAlt: "Artificial grass garden installation pros and cons Ireland",
-    title: "Artificial Grass: Pros & Cons for Irish Gardens (2025)",
-    metaTitle: "Artificial Grass Pros & Cons Ireland 2025 | Is it Worth It?",
+    title: "Artificial Grass: Pros & Cons for Irish Gardens (2026)",
+    metaTitle: "Artificial Grass Pros & Cons Ireland 2026 | Is it Worth It?",
     metaDescription: "Is artificial grass worth it for Irish gardens? Complete pros and cons guide including cost, maintenance, drainage and lifespan. From Aside Paving.",
     keywords: "artificial grass pros cons Ireland, is artificial grass worth it Ireland, artificial lawn Ireland, fake grass garden Ireland, artificial turf Dublin",
     category: "Artificial Grass",
@@ -183,10 +187,10 @@ Artificial grass is ideal for: families with young children, pet owners, people 
     slug: "patio-ideas-ireland",
     thumbnail: "/images/blog/patio-ideas.webp",
     thumbnailAlt: "Beautiful patio ideas and designs for Irish gardens",
-    title: "10 Patio Ideas for Irish Gardens in 2025",
-    metaTitle: "Patio Ideas Ireland 2025 | Natural Stone, Porcelain & Design Inspiration",
-    metaDescription: "10 beautiful patio ideas for Irish gardens in 2025. Natural stone, porcelain, sandstone and more. Design inspiration from Aside Paving.",
-    keywords: "patio ideas Ireland, patio designs Ireland, garden patio ideas Dublin, natural stone patio Ireland, porcelain patio ideas, outdoor patio Ireland 2025",
+    title: "10 Patio Ideas for Irish Gardens in 2026",
+    metaTitle: "Patio Ideas Ireland 2026 | Natural Stone, Porcelain & Design Inspiration",
+    metaDescription: "10 beautiful patio ideas for Irish gardens in 2026. Natural stone, porcelain, sandstone and more. Design inspiration from Aside Paving.",
+    keywords: "patio ideas Ireland, patio designs Ireland, garden patio ideas Dublin, natural stone patio Ireland, porcelain patio ideas, outdoor patio Ireland 2026",
     category: "Patios",
     readTime: "4 min read",
     publishDate: "2025-01-15",
@@ -273,8 +277,8 @@ If your new driveway requires a dropped kerb on a public footpath, you'll need p
     slug: "best-driveway-material-ireland",
     thumbnail: "/images/blog/best-driveway-material.webp",
     thumbnailAlt: "Best driveway materials compared for Irish weather",
-    title: "Best Driveway Material for Irish Weather (2025 Comparison)",
-    metaTitle: "Best Driveway Material Ireland 2025 | Block Paving, Tarmac & Resin Compared",
+    title: "Best Driveway Material for Irish Weather (2026 Comparison)",
+    metaTitle: "Best Driveway Material Ireland 2026 | Block Paving, Tarmac & Resin Compared",
     metaDescription: "What is the best driveway material for Irish weather? We compare block paving, cobblelock, tarmac, resin bound and gravel for durability, cost and looks.",
     keywords: "best driveway material Ireland, driveway materials comparison Ireland, block paving vs tarmac Ireland, resin driveway Ireland, cobblelock vs tarmac",
     category: "Driveways",
@@ -312,9 +316,9 @@ For premium kerb appeal: **resin bound** — stunning finish and fully permeable
     slug: "garden-wall-ideas-ireland",
     thumbnail: "/images/blog/garden-wall-ideas.webp",
     thumbnailAlt: "Garden wall ideas and designs for Irish homes",
-    title: "Garden Wall Ideas for Irish Homes (2025 Inspiration Guide)",
-    metaTitle: "Garden Wall Ideas Ireland 2025 | Brick, Block & Stone Wall Designs",
-    metaDescription: "Beautiful garden wall ideas for Irish homes in 2025. Brick, block, stone and rendered walls. Design inspiration and cost guide from Aside Paving.",
+    title: "Garden Wall Ideas for Irish Homes (2026 Inspiration Guide)",
+    metaTitle: "Garden Wall Ideas Ireland 2026 | Brick, Block & Stone Wall Designs",
+    metaDescription: "Beautiful garden wall ideas for Irish homes in 2026. Brick, block, stone and rendered walls. Design inspiration and cost guide from Aside Paving.",
     keywords: "garden wall ideas Ireland, garden wall designs Dublin, brick wall garden Ireland, stone garden wall ideas, boundary wall ideas Ireland",
     category: "Garden Walls",
     readTime: "4 min read",
@@ -344,7 +348,7 @@ Brick or block piers with metal railings between them — classic Irish front ga
 
 View our [garden walls and pillars portfolio](/garden-walls) for examples of these styles.
 
-### Garden Wall Costs in Ireland (2025)
+### Garden Wall Costs in Ireland (2026)
 
 | Type | Cost per Linear Metre |
 |---|---|

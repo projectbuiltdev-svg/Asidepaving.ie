@@ -13,7 +13,7 @@ export function FreeQuoteCTA() {
         
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button size="lg" variant="secondary" className="text-primary font-bold text-lg h-14 px-8" asChild data-testid="btn-cta-call">
-            <a href={`tel:${CONTACT_INFO.office}`}>
+            <a href={`tel:${CONTACT_INFO.officeTel}`}>
               <Phone className="mr-2 h-5 w-5" /> Call {CONTACT_INFO.office}
             </a>
           </Button>

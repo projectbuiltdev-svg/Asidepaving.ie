@@ -18,7 +18,7 @@ export function getLocalBusinessSchema(overrides?: Record<string, unknown>) {
     "name": "Aside Paving",
     "image": "https://asidepaving.ie/og-logo.png",
     "url": "https://asidepaving.ie",
-    "telephone": CONTACT_INFO.office,
+    "telephone": CONTACT_INFO.officeTel,
     "email": CONTACT_INFO.email,
     "foundingDate": "1985",
     "priceRange": "$$",
@@ -40,13 +40,14 @@ export function getLocalBusinessSchema(overrides?: Record<string, unknown>) {
     ],
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "IE",
-      "addressRegion": "Co. Kildare"
+      "addressLocality": CONTACT_INFO.locality,
+      "addressRegion": CONTACT_INFO.region,
+      "addressCountry": CONTACT_INFO.country
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 53.3498,
-      "longitude": -6.2603
+      "latitude": CONTACT_INFO.lat,
+      "longitude": CONTACT_INFO.lng
     },
     "areaServed": [
       { "@type": "City", "name": "Dublin" },
@@ -114,13 +115,11 @@ export function getFAQSchema(faqs: { question: string; answer: string }[]) {
 }
 
 export const aggregateRatingSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Aside Paving",
+  ...getLocalBusinessSchema(),
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "47",
+    "ratingValue": "5.0",
+    "reviewCount": "6",
     "bestRating": "5",
     "worstRating": "1"
   }

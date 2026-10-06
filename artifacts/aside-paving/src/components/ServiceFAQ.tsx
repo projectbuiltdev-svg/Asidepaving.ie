@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Link } from "wouter";
 import { SchemaScript } from "@/components/SchemaMarkup";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 
 interface FAQ {
   question: string;
@@ -85,7 +86,7 @@ export function ServiceFAQ({ serviceSlug, faqs, locationName }: ServiceFAQProps)
               <Link
                 key={s}
                 href={locationName
-                  ? `/${s}?location=${locationName.toLowerCase().replace(/\s+/g, '-')}`
+                  ? `/${s}/${locationName.toLowerCase().replace(/\s+/g, '-')}`
                   : `/${s}`
                 }
                 className="text-sm px-3 py-1.5 rounded-full border border-gray-200 hover:border-primary hover:text-primary transition-colors"
@@ -96,7 +97,7 @@ export function ServiceFAQ({ serviceSlug, faqs, locationName }: ServiceFAQProps)
           </div>
           <div className="flex flex-wrap gap-3">
             <Link href="/locations" className="text-sm text-primary hover:underline font-medium">
-              View all 135 service areas →
+              View all {SERVICE_AREA_COUNT} service areas →
             </Link>
             <Link href="/contact" className="text-sm text-primary hover:underline font-medium">
               Get a free quote →

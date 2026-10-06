@@ -7,7 +7,7 @@ import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLink
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
 import { serviceFAQs } from "@/data/serviceFAQs";
-import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
+import { IMAGES, GALLERY_ALTS, CATCHMENT_AREAS } from "@/lib/constants";
 import { MapPin, ArrowRight } from "lucide-react";
 
 export default function PatiosDriveways() {
@@ -95,7 +95,7 @@ export default function PatiosDriveways() {
               <div key={idx} className="overflow-hidden rounded-lg shadow-sm aspect-square">
                 <img 
                   src={img} 
-                  alt={`Patio work example ${idx + 1}`} 
+                  alt={GALLERY_ALTS[idx]} 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>

@@ -19,7 +19,7 @@
  *   - REGION_LABEL  : e.g. "Dublin, Kildare & Meath"
  *   - BRAND_NAME    : your business name
  *
- * The route convention every link uses is:  /{service-slug}?location={town-slug}
+ * The route convention every link uses is:  /{service-slug}/{town-slug}
  * Make sure your app renders a page at that route (a single dynamic component
  * keyed off the `location` query param serves all town+service combinations).
  *
@@ -139,7 +139,7 @@ export function titleCase(slug: string): string {
 
 /** Build a location+service URL — the single SEO route convention. */
 export function serviceLocationHref(serviceSlug: string, townSlug: string): string {
-  return `/${serviceSlug}?location=${townSlug}`;
+  return `/${serviceSlug}/${townSlug}`;
 }
 
 const totalTowns = COUNTIES.reduce((n, c) => n + c.towns.length, 0);

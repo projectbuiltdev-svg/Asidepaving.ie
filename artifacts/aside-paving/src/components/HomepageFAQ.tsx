@@ -1,3 +1,4 @@
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { SchemaScript } from "@/components/SchemaMarkup";
@@ -17,7 +18,7 @@ export const homepageFAQs = [
   },
   {
     question: "What areas do you cover?",
-    answer: "Aside Paving serves all areas across County Dublin, County Kildare and County Meath — over 135 towns and villages. See our full list of service areas."
+    answer: `Aside Paving serves all areas across County Dublin, County Kildare and County Meath — ${SERVICE_AREA_COUNT} towns and villages. See our full list of service areas.`
   },
   {
     question: "How long has Aside Paving been in business?",

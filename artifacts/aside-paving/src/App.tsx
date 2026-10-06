@@ -12,8 +12,7 @@ import ArtificialGrassPage from "@/pages/artificial-grass";
 import Locations from "@/pages/Locations";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
-import { ArtificialGrassRouter } from "@/pages/ArtificialGrassRouter";
-import ServiceRouter from "@/pages/ServiceRouter";
+import LocationService from "@/pages/LocationService";
 
 const queryClient = new QueryClient();
 
@@ -24,11 +23,16 @@ export function AppRoutes() {
       <Route path="/paving-services" component={PavingServices} />
       <Route path="/patios-driveways" component={PatiosDriveways} />
       <Route path="/walls-pillars" component={WallsPillars} />
-      <Route path="/artificial-grass" component={ArtificialGrassRouter} />
-      <Route path="/driveways">{() => <ServiceRouter service="driveways" />}</Route>
-      <Route path="/patios">{() => <ServiceRouter service="patios" />}</Route>
-      <Route path="/block-paving">{() => <ServiceRouter service="block-paving" />}</Route>
-      <Route path="/garden-walls">{() => <ServiceRouter service="garden-walls" />}</Route>
+      <Route path="/artificial-grass/:location">{(params) => <LocationService service="artificial-grass" location={params.location ?? ""} />}</Route>
+      <Route path="/artificial-grass" component={ArtificialGrassPage} />
+      <Route path="/driveways/:location">{(params) => <LocationService service="driveways" location={params.location ?? ""} />}</Route>
+      <Route path="/driveways" component={PavingServices} />
+      <Route path="/patios/:location">{(params) => <LocationService service="patios" location={params.location ?? ""} />}</Route>
+      <Route path="/patios" component={PatiosDriveways} />
+      <Route path="/block-paving/:location">{(params) => <LocationService service="block-paving" location={params.location ?? ""} />}</Route>
+      <Route path="/block-paving" component={PavingServices} />
+      <Route path="/garden-walls/:location">{(params) => <LocationService service="garden-walls" location={params.location ?? ""} />}</Route>
+      <Route path="/garden-walls" component={WallsPillars} />
       <Route path="/locations" component={Locations} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/blog" component={Blog} />

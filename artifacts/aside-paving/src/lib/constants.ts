@@ -18,14 +18,35 @@ import galleryGrass1Png from "@assets/gallery-grass-1.webp";
 import galleryGrass2Png from "@assets/gallery-grass-2.webp";
 
 export const CONTACT_INFO = {
-  office: "045395149",
-  tj: "0870381036",
-  tim: "0879134059",
+  office: "+353 45 395 149",
+  officeTel: "+35345395149",
+  tj: "+353 87 038 1036",
+  tjTel: "+353870381036",
+  tim: "+353 87 913 4059",
+  timTel: "+353879134059",
   whatsapp: "+353870381036",
   whatsappLink: "https://api.whatsapp.com/send?phone=+353870381036",
   email: "murphypaving1985@gmail.com",
-  address: "Co. Kildare, Ireland"
+  address: "Co. Kildare, Ireland",
+  locality: "Naas",
+  region: "Co. Kildare",
+  country: "IE",
+  lat: 53.2197,
+  lng: -6.6672,
+  hoursLabel: "Mon–Fri 08:00–18:00, Sat 09:00–17:00",
 };
+
+export const GALLERY_ALTS = [
+  "Cobblelock driveway in County Kildare",
+  "Block paving driveway in Dublin",
+  "Herringbone block paving driveway",
+  "Natural sandstone patio in Dublin",
+  "Porcelain patio in County Kildare",
+  "Capped garden wall in County Kildare",
+  "Block garden wall with pillars",
+  "Artificial grass lawn in Dublin",
+  "Artificial grass garden in County Kildare",
+];
 
 export const CATCHMENT_AREAS = "South Dublin, North Dublin, City Centre, and surrounding counties of Meath, Kildare, Kilkenny + Waterford.";
 

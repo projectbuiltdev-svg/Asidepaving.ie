@@ -1,0 +1,6 @@
+/driveways?location=:location /driveways/:location 301
+/patios?location=:location /patios/:location 301
+/block-paving?location=:location /block-paving/:location 301
+/garden-walls?location=:location /garden-walls/:location 301
+/artificial-grass?location=:location /artificial-grass/:location 301
+/* /index.html 200

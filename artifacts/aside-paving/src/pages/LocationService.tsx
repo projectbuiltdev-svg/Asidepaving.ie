@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useSearch } from "wouter";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ContactForm } from "@/components/shared/ContactForm";
@@ -36,10 +35,8 @@ function FAQAccordion({ faqs }: { faqs: { question: string; answer: string }[] }
   );
 }
 
-export default function LocationService({ service }: { service: string }) {
-  const searchString = useSearch();
-  const params = new URLSearchParams(searchString);
-  const locationSlug = params.get("location") || "";
+export default function LocationService({ service, location }: { service: string; location: string }) {
+  const locationSlug = location || "";
 
   const svc = serviceData[service];
   const locData = locationData[locationSlug];
@@ -58,15 +55,20 @@ export default function LocationService({ service }: { service: string }) {
 
   const locationName = formatLocation(locationSlug);
   const idx = getDescriptionIndex(locationSlug, service);
-  const faqs = generateLocationFAQs(svc.faqs, locationName, svc.title, svc.relatedServices);
+  const nearbyNames = locData.nearby.slice(0, 3).map(formatLocation);
+  const landmark = locData.attractions[0]?.name;
+  const faqs = generateLocationFAQs(svc.faqs, locationName, svc.title, svc.relatedServices, {
+    description: locData.description,
+    county: locData.county,
+    nearby: locData.nearby,
+    landmark,
+  });
   const otherServices = Object.values(serviceData).filter(s => s.slug !== service);
 
+  const pageUrl = `https://asidepaving.ie/${svc.slug}/${locationSlug}`;
   const localBizSchema = getLocalBusinessSchema({
-    "description": `${svc.title} in ${locationName}`,
-    "url": `https://asidepaving.ie/${svc.slug}?location=${locationSlug}`,
-    "telephone": CONTACT_INFO.office,
-    "address": { "@type": "PostalAddress", "addressLocality": locationName, "addressRegion": `Co. ${locData.county}`, "addressCountry": "IE" },
-    "geo": { "@type": "GeoCoordinates", "latitude": locData.lat, "longitude": locData.lng },
+    "description": `${svc.title} in ${locationName}, Co. ${locData.county}`,
+    "url": pageUrl,
     "areaServed": `${locationName}, Co. ${locData.county}`
   });
 
@@ -74,7 +76,7 @@ export default function LocationService({ service }: { service: string }) {
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: "Home", url: "https://asidepaving.ie" },
     { name: svc.title, url: `https://asidepaving.ie/${svc.slug}` },
-    { name: locationName, url: `https://asidepaving.ie/${svc.slug}?location=${locationSlug}` }
+    { name: locationName, url: pageUrl }
   ]);
   const faqSchema = getFAQSchema(faqs);
 
@@ -111,7 +113,7 @@ export default function LocationService({ service }: { service: string }) {
                 <a href={CONTACT_INFO.whatsappLink} target="_blank" rel="noopener noreferrer">Get a Free Quote</a>
               </Button>
               <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-black font-bold h-14 px-8" asChild>
-                <a href={`tel:${CONTACT_INFO.office}`}><Phone className="mr-2 h-5 w-5" /> Call Now</a>
+                <a href={`tel:${CONTACT_INFO.officeTel}`}><Phone className="mr-2 h-5 w-5" /> Call Now</a>
               </Button>
             </div>
           </div>
@@ -128,8 +130,13 @@ export default function LocationService({ service }: { service: string }) {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="flex flex-col lg:flex-row gap-12">
             <div className="lg:w-2/3">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                {svc.title} in {locationName} is planned for {locData.description}.
+                {landmark ? ` Quotes around ${landmark}` : " Local quotes"} look at access, the existing surface, and where rainwater goes, because {locationName} gets the same wet winters as the rest of Co. {locData.county}.
+                The crews also cover {nearbyNames.join(", ")}.
+              </p>
               <p className="text-lg text-muted-foreground leading-relaxed mb-10">
-                {svc.descriptions[idx]}
+                {locData.heroTexts[idx]} {svc.descriptions[idx]}
               </p>
 
               <h2 className="text-2xl font-serif font-bold mb-6">{svc.title} Options in {locationName}</h2>
@@ -145,7 +152,7 @@ export default function LocationService({ service }: { service: string }) {
               <h3 className="text-xl font-serif font-bold mb-4">Other Services in {locationName}</h3>
               <div className="flex flex-wrap gap-2 mb-10">
                 {svc.relatedServices.map((rs, i) => (
-                  <Link key={i} href={`/${rs.slug}?location=${locationSlug}`} className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors">
+                  <Link key={i} href={`/${rs.slug}/${locationSlug}`} className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors">
                     {rs.name} in {locationName}
                   </Link>
                 ))}
@@ -166,14 +173,14 @@ export default function LocationService({ service }: { service: string }) {
               <div className="sticky top-28 space-y-6">
                 <div className="bg-muted/30 rounded-xl border border-border p-6 space-y-4">
                   <h3 className="font-serif font-bold text-lg mb-2">Contact Us</h3>
-                  <a href={`tel:${CONTACT_INFO.office}`} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-border hover:border-primary transition-colors">
+                  <a href={`tel:${CONTACT_INFO.officeTel}`} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-border hover:border-primary transition-colors">
                     <Phone className="w-5 h-5 text-primary" />
                     <div>
                       <div className="font-bold">{CONTACT_INFO.office}</div>
                       <div className="text-xs text-muted-foreground">Office</div>
                     </div>
                   </a>
-                  <a href={`tel:${CONTACT_INFO.tj}`} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-border hover:border-primary transition-colors">
+                  <a href={`tel:${CONTACT_INFO.tjTel}`} className="flex items-center gap-3 p-3 rounded-lg bg-white border border-border hover:border-primary transition-colors">
                     <Phone className="w-5 h-5 text-primary" />
                     <div>
                       <div className="font-bold">{CONTACT_INFO.tj}</div>
@@ -296,7 +303,7 @@ export default function LocationService({ service }: { service: string }) {
           <h2 className="text-2xl font-serif font-bold text-center mb-8">Other Services in {locationName}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {otherServices.map((os, i) => (
-              <Link key={i} href={`/${os.slug}?location=${locationSlug}`} className="block p-6 bg-white rounded-xl border border-border hover:border-primary hover:shadow-md transition-all text-center group">
+              <Link key={i} href={`/${os.slug}/${locationSlug}`} className="block p-6 bg-white rounded-xl border border-border hover:border-primary hover:shadow-md transition-all text-center group">
                 <h3 className="font-serif font-bold group-hover:text-primary transition-colors">{os.title}</h3>
                 <p className="text-sm text-muted-foreground mt-1">in {locationName}</p>
               </Link>

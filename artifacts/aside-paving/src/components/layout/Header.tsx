@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Phone, MessageSquare, Menu, X, ChevronDown, ChevronUp, MapPin } from "lucide-react";
 import { CONTACT_INFO } from "@/lib/constants";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoImg from "@assets/logo.png";
@@ -118,7 +119,7 @@ function MobileMenu() {
                                 {services.map((service) => (
                                   <Link
                                     key={service.slug}
-                                    href={`/${service.slug}?location=${slugify(area)}`}
+                                    href={`/${service.slug}/${slugify(area)}`}
                                     className="block px-6 py-1.5 text-xs text-gray-500 hover:text-primary transition-colors"
                                     onClick={() => setOpen(false)}
                                   >
@@ -140,7 +141,7 @@ function MobileMenu() {
                     className="block px-6 py-2 text-sm font-medium text-primary hover:bg-primary/5 rounded transition-colors"
                     onClick={() => setOpen(false)}
                   >
-                    View all 129 service areas →
+                    View all {SERVICE_AREA_COUNT} service areas →
                   </Link>
                 </div>
               </div>
@@ -148,13 +149,13 @@ function MobileMenu() {
           </div>
 
           <div className="border-t border-gray-200 mt-4 pt-4 space-y-3">
-            <a href={`tel:${CONTACT_INFO.office}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
+            <a href={`tel:${CONTACT_INFO.officeTel}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
               <Phone className="h-4 w-4" /> Office: {CONTACT_INFO.office}
             </a>
-            <a href={`tel:${CONTACT_INFO.tj}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
+            <a href={`tel:${CONTACT_INFO.tjTel}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
               <Phone className="h-4 w-4" /> TJ: {CONTACT_INFO.tj}
             </a>
-            <a href={`tel:${CONTACT_INFO.tim}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
+            <a href={`tel:${CONTACT_INFO.timTel}`} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary transition-colors">
               <Phone className="h-4 w-4" /> Tim: {CONTACT_INFO.tim}
             </a>
             <a
@@ -180,13 +181,13 @@ export function Header() {
       <div className="bg-primary text-primary-foreground py-2 px-4 text-sm font-medium">
         <div className="container mx-auto max-w-6xl flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-1">
-            <a href={`tel:${CONTACT_INFO.office}`} className="flex items-center gap-1 hover:text-accent transition-colors">
+            <a href={`tel:${CONTACT_INFO.officeTel}`} className="flex items-center gap-1 hover:text-accent transition-colors">
               <Phone className="h-3 w-3" /> Office: {CONTACT_INFO.office}
             </a>
-            <a href={`tel:${CONTACT_INFO.tj}`} className="flex items-center gap-1 hover:text-accent transition-colors">
+            <a href={`tel:${CONTACT_INFO.tjTel}`} className="flex items-center gap-1 hover:text-accent transition-colors">
               <Phone className="h-3 w-3" /> TJ: {CONTACT_INFO.tj}
             </a>
-            <a href={`tel:${CONTACT_INFO.tim}`} className="flex items-center gap-1 hover:text-accent transition-colors">
+            <a href={`tel:${CONTACT_INFO.timTel}`} className="flex items-center gap-1 hover:text-accent transition-colors">
               <Phone className="h-3 w-3" /> Tim: {CONTACT_INFO.tim}
             </a>
           </div>

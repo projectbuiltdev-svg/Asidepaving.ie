@@ -63,7 +63,7 @@ export default function Locations() {
                           {allServices.map(s => (
                             <li key={s.slug}>
                               <Link
-                                href={`/${s.slug}?location=${slug}`}
+                                href={`/${s.slug}/${slug}`}
                                 className="text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
                               >
                                 {s.title} in {name}

@@ -7,7 +7,7 @@ import { CountyAreaLinks, RelatedServicesLinks } from "@/components/InternalLink
 import { SchemaScript, getLocalBusinessSchema, getServiceSchema, getBreadcrumbSchema } from "@/components/SchemaMarkup";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
 import { serviceFAQs } from "@/data/serviceFAQs";
-import { IMAGES } from "@/lib/constants";
+import { IMAGES, GALLERY_ALTS } from "@/lib/constants";
 import { HardHat } from "lucide-react";
 
 export default function WallsPillars() {
@@ -84,7 +84,7 @@ export default function WallsPillars() {
               <div key={idx} className="overflow-hidden rounded-lg shadow-sm aspect-video">
                 <img 
                   src={img} 
-                  alt={`Walls work example ${idx + 1}`} 
+                  alt={GALLERY_ALTS[idx + 4]} 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>

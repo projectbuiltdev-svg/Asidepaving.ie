@@ -1,4 +1,5 @@
 import { testimonials } from "@/data/testimonials";
+import { CONTACT_INFO } from "@/lib/constants";
 import { Star, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { SchemaScript } from "@/components/SchemaMarkup";
@@ -27,6 +28,13 @@ export function ReviewsSection({ filterService }: { filterService?: string }) {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Aside Paving",
+    "telephone": CONTACT_INFO.officeTel,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": CONTACT_INFO.locality,
+      "addressRegion": CONTACT_INFO.region,
+      "addressCountry": CONTACT_INFO.country
+    },
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",

@@ -176,15 +176,15 @@ export function ContactForm() {
                   </div>
                   <div>
                     <p className="font-bold text-foreground text-sm">Phone</p>
-                    <a href={`tel:${CONTACT_INFO.office}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${CONTACT_INFO.officeTel}`} className="text-muted-foreground hover:text-primary transition-colors">
                       Office: {CONTACT_INFO.office}
                     </a>
                     <br />
-                    <a href={`tel:${CONTACT_INFO.tj}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${CONTACT_INFO.tjTel}`} className="text-muted-foreground hover:text-primary transition-colors">
                       TJ: {CONTACT_INFO.tj}
                     </a>
                     <br />
-                    <a href={`tel:${CONTACT_INFO.tim}`} className="text-muted-foreground hover:text-primary transition-colors">
+                    <a href={`tel:${CONTACT_INFO.timTel}`} className="text-muted-foreground hover:text-primary transition-colors">
                       Tim: {CONTACT_INFO.tim}
                     </a>
                   </div>
@@ -209,6 +209,7 @@ export function ContactForm() {
                   <div>
                     <p className="font-bold text-foreground text-sm">Location</p>
                     <p className="text-muted-foreground">{CONTACT_INFO.address}</p>
+                    <p className="text-muted-foreground">{CONTACT_INFO.hoursLabel}</p>
                   </div>
                 </div>
               </div>

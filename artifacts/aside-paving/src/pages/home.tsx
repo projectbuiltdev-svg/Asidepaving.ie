@@ -8,6 +8,7 @@ import { BeforeAfterGallery } from "@/components/BeforeAfterGallery";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { HomepageFAQ } from "@/components/HomepageFAQ";
 import { IMAGES, CATCHMENT_AREAS } from "@/lib/constants";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "wouter";
@@ -158,7 +159,7 @@ export default function Home() {
           </div>
           <div className="text-center mt-6">
             <Link href="/locations" className="text-primary font-medium hover:underline">
-              View all 135 service areas across Dublin, Kildare & Meath →
+              View all {SERVICE_AREA_COUNT} service areas across Dublin, Kildare & Meath →
             </Link>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { SERVICE_AREA_COUNT } from "./locationData";
+
 export const serviceFAQs: Record<string, { question: string; answer: string }[]> = {
 
   "driveways": [
@@ -27,7 +29,7 @@ export const serviceFAQs: Record<string, { question: string; answer: string }[]>
     },
     {
       question: "Do you serve areas outside Dublin?",
-      answer: "Yes — we cover all of County Dublin, County Kildare and County Meath. See our full list of service areas across 135 towns and villages."
+      answer: `Yes — we cover all of County Dublin, County Kildare and County Meath. See our full list of service areas across ${SERVICE_AREA_COUNT} towns and villages.`
     },
     {
       question: "Can you replace just part of my existing driveway?",
@@ -66,7 +68,7 @@ export const serviceFAQs: Record<string, { question: string; answer: string }[]>
     },
     {
       question: "Which areas do you cover for patio installation?",
-      answer: "We install patios across all of County Dublin, County Kildare and County Meath — over 135 areas. View our full locations list to find your nearest service area."
+      answer: `We install patios across all of County Dublin, County Kildare and County Meath — ${SERVICE_AREA_COUNT} areas. View our full locations list to find your nearest service area.`
     }
   ],
 
@@ -101,7 +103,7 @@ export const serviceFAQs: Record<string, { question: string; answer: string }[]>
     },
     {
       question: "What areas do you cover for block paving?",
-      answer: "We install block paving across County Dublin, County Kildare and County Meath — 135+ towns and villages. Find your area on our locations page."
+      answer: `We install block paving across County Dublin, County Kildare and County Meath — ${SERVICE_AREA_COUNT} towns and villages. Find your area on our locations page.`
     }
   ],
 
@@ -136,7 +138,7 @@ export const serviceFAQs: Record<string, { question: string; answer: string }[]>
     },
     {
       question: "Which areas do you serve for garden wall construction?",
-      answer: "Aside Paving builds garden walls across all of County Dublin, County Kildare and County Meath. We serve over 135 areas — see our full locations list."
+      answer: `Aside Paving builds garden walls across all of County Dublin, County Kildare and County Meath. We serve ${SERVICE_AREA_COUNT} areas — see our full locations list.`
     }
   ],
 
@@ -171,7 +173,7 @@ export const serviceFAQs: Record<string, { question: string; answer: string }[]>
     },
     {
       question: "Which areas do you cover for artificial grass installation?",
-      answer: "We supply and install artificial grass across County Dublin, County Kildare and County Meath — over 135 towns. See our full service area list."
+      answer: `We supply and install artificial grass across County Dublin, County Kildare and County Meath — ${SERVICE_AREA_COUNT} towns. See our full service area list.`
     }
   ]
 };

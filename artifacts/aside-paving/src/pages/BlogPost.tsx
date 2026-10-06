@@ -165,6 +165,7 @@ export default function BlogPost() {
     "author": { "@type": "Organization", "name": "Aside Paving" },
     "publisher": { "@type": "Organization", "name": "Aside Paving", "url": "https://asidepaving.ie" },
     "datePublished": post.publishDate,
+    "dateModified": post.dateModified ?? "2026-10-06",
     "url": `https://asidepaving.ie/blog/${post.slug}`
   };
 
@@ -187,6 +188,8 @@ export default function BlogPost() {
                 <span className="text-sm text-muted-foreground flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   {new Date(post.publishDate).toLocaleDateString("en-IE", { day: "numeric", month: "long", year: "numeric" })}
+                  {" · Updated "}
+                  {new Date(post.dateModified ?? "2026-10-06").toLocaleDateString("en-IE", { day: "numeric", month: "long", year: "numeric" })}
                 </span>
               </div>
 
@@ -222,7 +225,7 @@ export default function BlogPost() {
                 </Button>
                 <div className="mt-4 flex items-center gap-2 text-sm">
                   <Phone className="w-4 h-4 text-primary" />
-                  <a href={`tel:${CONTACT_INFO.office}`} className="text-primary font-medium hover:underline">
+                  <a href={`tel:${CONTACT_INFO.officeTel}`} className="text-primary font-medium hover:underline">
                     {CONTACT_INFO.office}
                   </a>
                 </div>

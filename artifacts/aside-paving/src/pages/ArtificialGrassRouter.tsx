@@ -8,7 +8,7 @@ export function ArtificialGrassRouter() {
   const hasLocation = params.has("location") && params.get("location") !== "";
 
   if (hasLocation) {
-    return <LocationService service="artificial-grass" />;
+    return <LocationService service="artificial-grass" location={params.get("location") || ""} />;
   }
 
   return <ArtificialGrassPage />;

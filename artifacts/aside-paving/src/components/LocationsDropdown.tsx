@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { SERVICE_AREA_COUNT } from "@/data/locationData";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem,
   DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger,
@@ -71,7 +72,7 @@ export function LocationsDropdown() {
                     {services.map((service) => (
                       <DropdownMenuItem key={service.slug} asChild>
                         <Link
-                          href={`/${service.slug}?location=${area.toLowerCase().replace(/\s+/g,'-').replace(/[^\w-]/g,'')}`}
+                          href={`/${service.slug}/${area.toLowerCase().replace(/\s+/g,'-').replace(/[^\w-]/g,'')}`}
                           className="cursor-pointer text-sm"
                         >
                           {service.label}
@@ -96,7 +97,7 @@ export function LocationsDropdown() {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/locations" className="cursor-pointer font-medium text-primary">
-            View all 129 service areas →
+            View all {SERVICE_AREA_COUNT} service areas →
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
